@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Loofi.iml" filepath="$PROJECT_DIR$/Loofi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Loofi.iml" filepath="$PROJECT_DIR$/.idea/Loofi.iml" />
     </modules>
   </component>
 </project>
