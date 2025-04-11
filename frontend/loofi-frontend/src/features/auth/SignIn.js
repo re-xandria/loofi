@@ -1,6 +1,6 @@
-import '../App.css';
+import '../../styles/App.css';
 import {Col, Container, Row, Image} from "react-bootstrap";
-import placeholder from './placeholder.png';
+import placeholder from '../../assets/placeholder.png';
 
 
 function SignIn() {
@@ -13,7 +13,7 @@ function SignIn() {
                            style={{ width: "100%", height: "100%", objectFit: "cover" }} src={placeholder} alt="placeholder" />
                 </Col>
                 {/* pattern and logo on left*/}
-                <Col fluid style={{ margin: "auto", textAlign:"left", paddingInlineStart:20 + "em", paddingInlineEnd:20 + "em"}}  id="sign-in" xxl={7} >
+                <Col fluid style={{ margin: "auto", textAlign:"left", paddingInlineStart:20 + "em", paddingInlineEnd:20 + "em"}}  id="sign-in" lg={7} >
                     <h1>Sign In</h1>
                     <p>New to Loofi? <a href="#">Create an account</a></p>
                     <form style={{marginRight:10 + "rem"}}>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController {
 
-    @GetMapping("anon")
+    @GetMapping("/anon")
     public String anon() { return "Everyone can see this."; }
 
     @GetMapping("/users")
