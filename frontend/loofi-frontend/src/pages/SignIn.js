@@ -18,7 +18,7 @@ function SignIn() {
                     <p>New to Loofi? <a href="#">Create an account</a></p>
                     <form style={{marginRight:10 + "rem"}}>
                         <div style={{marginTop:2.5 + "rem"}}>
-                            <label style={{display:"block", marginBottom:.5 + "rem"}}>Username or Email Address *</label>
+                            <label style={{display:"block", marginBottom:.5 + "rem"}}>Email Address *</label>
                             <input style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem", marginBottom:3 + "rem"}} type="text" id="usernameEmail"/>
                         </div>
                         <div>
