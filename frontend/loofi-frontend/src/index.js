@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import SignIn from "./features/auth/SignIn";
+import SignUp from "./features/auth/SignUp";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router  = createBrowserRouter([
@@ -17,7 +18,11 @@ const router  = createBrowserRouter([
     {
         path: '/sign-in',
         element: <SignIn />,
-    }
+    },
+    {
+        path: 'sign-up',
+        element: <SignUp />
+    },
 ]);
 root.render(
   <React.StrictMode>

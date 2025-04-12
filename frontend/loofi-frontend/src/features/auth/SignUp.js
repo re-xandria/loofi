@@ -1,14 +1,15 @@
-import '../../styles/App.css';
-import {Col, Container, Row, Image, Form, Button, FormGroup, FormLabel, FormControl} from "react-bootstrap";
-import placeholder from '../../assets/placeholder.png';
+import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Image, Row} from "react-bootstrap";
+import placeholder from "../../assets/placeholder.png";
 import * as authAPI from "../../services/authAPI";
 import {useEffect, useState} from "react";
-import {redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-function SignIn() {
+function SignUp() {
 
+    const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [token, setToken] = useState('');
     let navigate = useNavigate();
 
@@ -20,14 +21,14 @@ function SignIn() {
     }, [token]);
 
     const onSubmit = async () => {
-        await authAPI.signIn(email, password)
+        authAPI.signUp(firstName, email, password)
             .then(res => {
                 setToken(res.data.token);
             })
             .catch(error => {
-                console.log("Unable to Authenticate", error);
-                alert("Unable to find account. Try again.")
-            });
+                console.log("Unable to create user", error);
+                alert("Unable to create account. Try again.")
+            })
     }
 
     return(
@@ -39,19 +40,26 @@ function SignIn() {
                 </Col>
                 {/* pattern and logo on left*/}
                 <Col fluid="true" style={{ margin: "auto", textAlign:"left", paddingInlineStart:20 + "em", paddingInlineEnd:20 + "em"}}  id="sign-in" lg={7} >
-                    <h1>Sign In</h1>
-                    <p>New to Loofi? <a href="/sign-up">Create an account</a></p>
+                    <h1>Sign Up</h1>
+                    <p>Already have an account? <a href="/sign-in">Sign in</a></p>
                     <Form mx-md-2="true" style={{marginRight:10 + "rem"}}>
-                        <FormGroup style={{marginTop:2.5 + "rem"}} controlId="email">
+                        <FormGroup style={{marginTop:2.5 + "rem"}} controlId="firstName">
+                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>First Name *</FormLabel>
+                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem"}} type="text"  placeholder="John" value={firstName} onChange={e => setFirstName(e.target.value)}/>
+                        </FormGroup>
+                        <FormGroup style={{marginTop:1 + "rem"}} controlId="email">
                             <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Email Address *</FormLabel>
                             <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem", marginBottom:3 + "rem"}} type="email"  placeholder="john.appleseed@email.com" value={email} onChange={e => setEmail(e.target.value)}/>
                         </FormGroup>
                         <FormGroup controlId="password">
                             <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Password *</FormLabel>
                             <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem" }} type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                            <a style={{display:"block",  marginTop:.5 + "rem", marginBottom:3 + "rem", width: 20 + "rem"}} href="">Forgot Password?</a>
                         </FormGroup>
-                        <Button style={{paddingInlineStart:1 + "rem", paddingInlineEnd:1 + "rem", paddingBlockStart: .75+ "rem", paddingBlockEnd: .75+ "rem", width: 20 + "rem" }} type="button" onClick={onSubmit}>Sign In</Button>
+                        <FormGroup style={{marginTop:1 + "rem"}} controlId="passwordConfirm">
+                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Confirm Password *</FormLabel>
+                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem" }} type="password" value={passwordConfirmation} onChange={e => setPasswordConfirmation(e.target.value)}/>
+                        </FormGroup>
+                        <Button style={{paddingInlineStart:1 + "rem", paddingInlineEnd:1 + "rem", paddingBlockStart: .75+ "rem", paddingBlockEnd: .75+ "rem", width: 20 + "rem" }} type="button" onClick={onSubmit}>Register Account</Button>
                     </Form>
                 </Col>
             </Row>
@@ -59,4 +67,4 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default SignUp;
