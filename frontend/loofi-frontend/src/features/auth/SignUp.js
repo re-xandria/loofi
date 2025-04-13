@@ -12,16 +12,16 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [token, setToken] = useContext(UserContext);
+    const [userInfo, setUserInfo] = useContext(UserContext);
     const [isAcctCreated, setIsAcctCreated] = useState(false)
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (isAcctCreated && token) {
+        if (isAcctCreated && userInfo) {
             console.log("Token acquired");
             navigate('/home'); // send to loofi platform if token returned
         }
-    }, [isAcctCreated, token]);
+    }, [isAcctCreated, userInfo]);
 
     useEffect(() => {
         console.log("valid fields updated");
@@ -33,7 +33,7 @@ function SignUp() {
         if (validateName(firstName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation){
             try {
                 const res = await authAPI.signUp(firstName, email, password)
-                setToken({value: res.data.token});
+                setUserInfo({email: email, token: res.data.token});
                 setIsAcctCreated(true);
                 alert("Account successfully created!");
             } catch (error) {

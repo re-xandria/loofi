@@ -7,8 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import SignIn from "./features/auth/SignIn";
 import SignUp from "./features/auth/SignUp";
-import Home from "./features/Home/Home";
+import Home from "./features/home/Home";
 import Store from "./features/auth/Store";
+import AccountDashboard from "./features/account/AccountDashboard";
+import AccountSettings from "./features/account/AccountSettings";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router  = createBrowserRouter([
@@ -28,6 +30,14 @@ const router  = createBrowserRouter([
     {
         path: '/home',
         element: <Home />
+    },
+    {
+        path: '/dashboard',
+        element: <AccountDashboard />
+    },
+    {
+        path: '/settings',
+        element: <AccountSettings />
     }
 ]);
 root.render(

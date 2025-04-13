@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 
 const initialState = {
-    value: ''
+    email: '',
+    token: '',
 };
 
 export const UserContext = React.createContext();
 
 const Store = ({children}) => {
 
-    const [token, setToken] = useState(initialState);
+    const [userInfo, setUserInfo] = useState(initialState);
 
     return (
-        <UserContext.Provider value={[token, setToken]}>{children}</UserContext.Provider>
+        <UserContext.Provider value={[userInfo, setUserInfo]}>{children}</UserContext.Provider>
     )
 }
 

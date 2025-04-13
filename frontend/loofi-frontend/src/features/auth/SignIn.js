@@ -12,15 +12,15 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [token, setToken] = useContext(UserContext);
+    const [userInfo, setUserInfo] = useContext(UserContext);
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoggedIn && token) {
+        if (isLoggedIn && userInfo) {
             console.log("Token acquired");
             navigate('/home'); // send to loofi platform if token returned
         }
-    }, [isLoggedIn, token]);
+    }, [isLoggedIn, userInfo]);
 
     useEffect(() => {
         console.log("email and or password set");
@@ -29,7 +29,7 @@ function SignIn() {
     const onSubmit = async () => {
         try {
             const res = await authAPI.signIn(email, password)
-            setToken({value: res.data.token});
+            setUserInfo({email: email, token: res.data.token});
             setIsLoggedIn(true);
         } catch (error) {
             if (error.response && error.response.status === 403) {
