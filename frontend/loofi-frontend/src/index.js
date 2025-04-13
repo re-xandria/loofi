@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import SignIn from "./features/auth/SignIn";
 import SignUp from "./features/auth/SignUp";
+import Home from "./features/Home/Home";
+import Store from "./features/auth/Store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router  = createBrowserRouter([
@@ -20,13 +22,19 @@ const router  = createBrowserRouter([
         element: <SignIn />,
     },
     {
-        path: 'sign-up',
+        path: '/sign-up',
         element: <SignUp />
     },
+    {
+        path: '/home',
+        element: <Home />
+    }
 ]);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+      <Store>
+          <RouterProvider router={router}/>
+      </Store>
   </React.StrictMode>
 );
 

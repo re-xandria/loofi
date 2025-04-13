@@ -2,38 +2,43 @@ import '../../styles/App.css';
 import {Col, Container, Row, Image, Form, Button, FormGroup, FormLabel, FormControl} from "react-bootstrap";
 import placeholder from '../../assets/placeholder.png';
 import * as authAPI from "../../services/authAPI";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword} from "../validation/authValidation";
+import { UserContext } from "./Store";
 
 function SignIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [token, setToken] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [token, setToken] = useContext(UserContext);
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (token) {
-            console.log("Token acquired:  ", token);
-            navigate('/'); // send to loofi platform if token returned
+        if (isLoggedIn && token) {
+            console.log("Token acquired");
+            navigate('/home'); // send to loofi platform if token returned
         }
-    }, [token]);
+    }, [isLoggedIn, token]);
 
     useEffect(() => {
         console.log("email and or password set");
     }, [email, password])
 
     const onSubmit = async () => {
-        console.log(email, password);
-        await authAPI.signIn(email, password)
-            .then(res => {
-                setToken(res.data.token);
-            })
-            .catch(error => {
+        try {
+            const res = await authAPI.signIn(email, password)
+            setToken({value: res.data.token});
+            setIsLoggedIn(true);
+        } catch (error) {
+            if (error.response && error.response.status === 403) {
                 console.log("Unable to Authenticate", error);
                 alert("Unable to find account. Try again.");
-            });
+            } else {
+                console.log("Something went wrong. Try again.")
+            }
+        }
     }
 
     const handleEmail = (field) => {
@@ -42,6 +47,7 @@ function SignIn() {
             setEmail(field.target.value);
         }
         else {
+            setEmail('')
             console.log("invalid email");
         }
     }
@@ -50,9 +56,9 @@ function SignIn() {
         if (validatePassword(field.target.value)) {
             console.log("valid password given")
             setPassword(field.target.value);
-            // change existing user accounts to have valid password to test functionality
         }
         else {
+            setPassword('')
             console.log("invalid password");
         }
     }

@@ -4,20 +4,13 @@ export const validateEmail = (email) => {
     return !!email.match(validPattern);
 }
 
-export const validatePassword = (password, passwordConfirmation = "none") => {
+export const validatePassword = (password) => {
     // Must be at least 8 chars, one upper, one lower, one number, and one special
     const validPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    if (password.match(validPattern)) {
-        if (passwordConfirmation !== "none" && password === passwordConfirmation) {
-            return true;
-        }
-        return true;
-    }
-    return false;
+    return !!password.match(validPattern);
+
 }
 
 export const validateName = (name) => {
-    // Accepts alphabetical chars, 1 space max, and length must be between 2 and 30
-    const validPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return name.match(validPattern);
+    return 2 < name.length < 30;
 }

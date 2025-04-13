@@ -1,9 +1,10 @@
 import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Image, Row} from "react-bootstrap";
 import placeholder from "../../assets/placeholder.png";
 import * as authAPI from "../../services/authAPI";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validateName, validatePassword} from "../validation/authValidation";
+import {UserContext} from "./Store";
 
 function SignUp() {
 
@@ -11,29 +12,42 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [token, setToken] = useState('');
+    const [token, setToken] = useContext(UserContext);
+    const [isAcctCreated, setIsAcctCreated] = useState(false)
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (token) {
-            console.log("Token acquired:  ", token);
-            navigate('/'); // send to loofi platform if token returned
+        if (isAcctCreated && token) {
+            console.log("Token acquired");
+            navigate('/home'); // send to loofi platform if token returned
         }
-    }, [token]);
+    }, [isAcctCreated, token]);
 
     useEffect(() => {
         console.log("valid fields updated");
+        console.log(password)
+        console.log(passwordConfirmation)
     }, [firstName, email, password, passwordConfirmation])
 
     const onSubmit = async () => {
-        authAPI.signUp(firstName, email, password)
-            .then(res => {
-                setToken(res.data.token);
-            })
-            .catch(error => {
-                console.log("Unable to create user", error);
-                alert("Unable to create account. Try again.")
-            })
+        if (validateName(firstName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation){
+            try {
+                const res = await authAPI.signUp(firstName, email, password)
+                setToken({value: res.data.token});
+                setIsAcctCreated(true);
+                alert("Account successfully created!");
+            } catch (error) {
+                if (error.response && error.response.status === 403) {
+                    console.log("Unable to create user", error);
+                    alert("Unable to create account. Try again.")
+                } else {
+                    console.log("Something went wrong. Try again.")
+                }
+            }
+        } else  {
+            console.log("Account could not be created")
+            console.log(firstName, email, password, passwordConfirmation)
+        }
     }
 
     const handleName = (field) => {
@@ -42,6 +56,7 @@ function SignUp() {
             setFirstName(field.target.value);
         }
         else {
+            setFirstName('')
             console.log("invalid name");
         }
     }
@@ -52,18 +67,31 @@ function SignUp() {
             setEmail(field.target.value);
         }
         else {
+            setEmail('')
             console.log("invalid email");
         }
     }
 
     const handlePassword = (field) => {
-        if (validatePassword(field.target.value)) {
-            console.log("valid password given")
-            setPassword(field.target.value);
-            // call validatePassword() again on submit to compare both password fields
+        if (field.target.id === 'password') {
+            if (validatePassword(field.target.value)) {
+                console.log("valid password given")
+                setPassword(field.target.value);
+            }
+            else {
+                setPassword('')
+                console.log("invalid password");
+            }
         }
         else {
-            console.log("invalid password");
+            if (validatePassword(field.target.value)) {
+                console.log("valid password given")
+                setPasswordConfirmation(field.target.value);
+            }
+            else {
+                setPasswordConfirmation('')
+                console.log("invalid password");
+            }
         }
     }
 

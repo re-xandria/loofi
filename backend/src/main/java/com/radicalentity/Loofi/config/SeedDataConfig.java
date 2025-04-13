@@ -27,28 +27,13 @@ public class SeedDataConfig implements CommandLineRunner {
             User admin = User
                     .builder()
                     .firstName("admin")
-                    .email("xandria.crosland@gmail.com")
-                    .password(passwordEncoder.encode("password"))
+                    .email("admin@email.com")
+                    .password(passwordEncoder.encode("1Password*"))
                     .role(Role.ROLE_ADMIN)
                     .build();
 
             userService.save(admin);
             log.debug("Created admin user - {} ", admin);
         }
-
-        if (userRepository.count() == 1) {
-
-            User testUser = User
-                    .builder()
-                    .firstName("test")
-                    .email("test@email.com")
-                    .password(passwordEncoder.encode("password"))
-                    .role(Role.ROLE_USER)
-                    .build();
-
-            userService.save(testUser);
-            log.debug("Created test user - {} ", testUser);
-        }
-
     }
 }
