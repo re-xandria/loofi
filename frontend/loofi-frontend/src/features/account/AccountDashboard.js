@@ -1,17 +1,18 @@
 // display dashboard
 
 import Navigation from "../../components/Navigation";
-import BaseDashboard from "../../components/BaseDashboard";
-import AdminDashboard from "../../components/AdminDashboard";
-import UserDashboard from "../../components/UserDashboard";
+import AdminDashboard from "../../components/dashboard/AdminDashboard";
+import UserDashboard from "../../components/dashboard/UserDashboard";
 
 function AccountDashboard() {
 
-    switch ("user") {
+    // access findByEmail() from spring to get user_role from database
+
+    switch ("admin") {
         case "admin":
-        return <><Navigation></Navigation><AdminDashboard /></>;
+            return <AdminDashboard />;
         default:
-        return <><Navigation></Navigation><UserDashboard /></>;
+            return <UserDashboard />;
     }
 }
 

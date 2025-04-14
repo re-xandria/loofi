@@ -1,5 +1,6 @@
 package com.radicalentity.Loofi.services;
 
+import com.radicalentity.Loofi.dto.AccountRequest;
 import com.radicalentity.Loofi.models.User;
 import com.radicalentity.Loofi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,16 @@ public class UserService {
 
         newUser.setUpdatedAt(LocalDateTime.now());
         return userRepository.save(newUser);
+    }
+
+    public String changePassword(AccountRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (!user.getPassword().equals(request.getPassword())) {
+            user.setPassword(request.getPassword());
+            userRepository.save(user);
+            return "Password changed";
+        }
+        return "Passwords are the same";
     }
 
 }

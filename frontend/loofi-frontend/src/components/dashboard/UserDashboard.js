@@ -1,18 +1,16 @@
-// reusable dashboard component, changes if admin or regular user
+import React from "react";
+import BaseDashboard from "../dashboard/BaseDashboard";
+import {Button, Col, Container, Form, Image, Nav, Row} from "react-bootstrap";
+import Avatar7 from "../../assets/Avatar 7.svg";
 
-import {Button, Col, Container, Form, FormGroup, Image, Nav, Row} from "react-bootstrap";
-import Avatar7 from "../assets/Avatar 7.svg"
-
-function BaseDashboard({ title, children }) {
-    return(
-        <>
+const UserDashboard = () => {
+    return (
+        <BaseDashboard title="User">
             <Container>
                 <Row className="mt-5 gap-5 flex">
                     <Col lg={7}>
-                        <Container className="d-flex align-center gap-3">
-                            <h3>Account Dashboard </h3>
-                            <p>{title}</p>
-                        </Container>
+
+                        <h3>Account Dashboard </h3>
                         <hr/>
 
                         <Row className="mt-4 flex-wrap">
@@ -38,8 +36,8 @@ function BaseDashboard({ title, children }) {
                                     <Form.Control type="text" placeholder="The Loofi King" />
                                 </Form.Group>
                                 <Form.Group className="mb-4" controlId="bio">
-                                    <Form.Label>Here's all about me!</Form.Label>
-                                    <Form.Control as="textarea" rows={4} />
+                                    <Form.Label>Bio</Form.Label>
+                                    <Form.Control as="textarea" rows={4} placeholder="Here's all about me!" />
                                 </Form.Group>
                                 <Form.Group>
                                     <Button type="button">Save Changes</Button>
@@ -56,7 +54,7 @@ function BaseDashboard({ title, children }) {
 
                         <Nav variant="pills" defaultActiveKey="/dashboard" className="flex-column">
                             <Nav.Item>
-                                <Nav.Link href="/dashboard">Edit Profile</Nav.Link>
+                                <Nav.Link >Edit Profile</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="achievements" href="">Achievements</Nav.Link>
@@ -72,8 +70,8 @@ function BaseDashboard({ title, children }) {
                     </Col>
                 </Row>
             </Container>
-        </>
-    )
-}
+        </BaseDashboard>
+    );
+};
 
-export default BaseDashboard;
+export default UserDashboard;

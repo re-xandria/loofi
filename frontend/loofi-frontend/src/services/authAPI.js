@@ -17,3 +17,5 @@ export const signUp = (firstName, email, password) => {
         password: password
     })
 }
+
+

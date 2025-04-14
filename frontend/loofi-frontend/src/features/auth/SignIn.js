@@ -5,7 +5,8 @@ import * as authAPI from "../../services/authAPI";
 import {useEffect, useState, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword} from "../validation/authValidation";
-import { UserContext } from "./Store";
+import {UserContext} from "./Store";
+// import { UserContext } from "./Store";
 
 function SignIn() {
 
@@ -17,6 +18,7 @@ function SignIn() {
 
     useEffect(() => {
         if (isLoggedIn && userInfo) {
+            console.log(userInfo.email);
             console.log("Token acquired");
             navigate('/home'); // send to loofi platform if token returned
         }
@@ -40,6 +42,8 @@ function SignIn() {
             }
         }
     }
+
+    // BUG: handle functions do not execute properly when the fields are auto-populated by the browser
 
     const handleEmail = (field) => {
         if (validateEmail(field.target.value)) {

@@ -25,8 +25,6 @@ function SignUp() {
 
     useEffect(() => {
         console.log("valid fields updated");
-        console.log(password)
-        console.log(passwordConfirmation)
     }, [firstName, email, password, passwordConfirmation])
 
     const onSubmit = async () => {
