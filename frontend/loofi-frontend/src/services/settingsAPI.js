@@ -15,3 +15,9 @@ export const changeEmail = (currE, newE) => {
         newEmail: newE
     })
 }
+
+export const deleteAccount = (email) => {
+    return axios.post(baseUrl + '/dashboard/delete-settings', {
+        email: email
+    })
+}

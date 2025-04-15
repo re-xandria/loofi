@@ -1,5 +1,6 @@
 package com.radicalentity.Loofi.controllers;
 
+import com.radicalentity.Loofi.dto.DeleteRequest;
 import com.radicalentity.Loofi.dto.EmailRequest;
 import com.radicalentity.Loofi.dto.PasswordRequest;
 import com.radicalentity.Loofi.services.UserService;
@@ -26,6 +27,12 @@ public class DashboardController {
     // will eventually need the PreAuthorize annotation to check token before executing
     public String changeEmail(@RequestBody EmailRequest request) {
         return userService.changeEmail(request);
+    }
+
+    @PostMapping("/delete-settings")
+    // will eventually need the PreAuthorize annotation to check token before executing
+    public String deleteUser(@RequestBody DeleteRequest request) {
+        return userService.deleteUser(request);
     }
 
 }

@@ -21,7 +21,11 @@ import {UserContext} from "../features/auth/Store";
 function Navigation() {
 
     const navigate = new useNavigate();
-    const [clearUserInfo] = useContext(UserContext);
+    const [userInfo, clearUserInfo] = useContext(UserContext);
+
+    useEffect(() => {
+        if (userInfo.token === '') navigate("/")
+    }, []);
 
     const logOut = () => {
         if (window.confirm("Are you sure you want to log out?")) {

@@ -4,12 +4,14 @@ import React, {useContext, useEffect, useState} from "react";
 import * as settingsAPI from "../../services/settingsAPI";
 import { UserContext } from "../auth/Store";
 import {validateEmail, validatePassword} from "../validation/authValidation";
+import {useNavigate} from "react-router-dom";
 
 function AccountSettings() {
     const [userInfo, setUserInfo] = useContext(UserContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("valid fields updated");
@@ -80,6 +82,21 @@ function AccountSettings() {
         }
     }
 
+    const deleteAccount = async () => {
+        console.log("account deleted")
+        if (window.confirm("Are you sure you want to delete your account?")) {
+            try {
+                const res = await settingsAPI.deleteAccount(userInfo.email);
+                if (res.data === "User deleted") alert("Account successfully deleted! Returning to home page.")
+                else alert("Could not find your account. Please log in and try again.")
+                navigate('/')
+            } catch (error) {
+                console.log(error)
+                alert("Could not delete account. Please try again.")
+            }
+        }
+    }
+
     return (
         <>
             <h3>Account Settings</h3>
@@ -116,6 +133,14 @@ function AccountSettings() {
             </Row>
 
             {/* Add Delete account button*/}
+            <Row className="my-5">
+                <Form>
+                    <h5 className="mb-3">Delete Account</h5>
+                    <Form.Group>
+                        <Button type="button" variant="danger" onClick={deleteAccount}>Delete Account</Button>
+                    </Form.Group>
+                </Form>
+            </Row>
         </>
     )
 }

@@ -1,5 +1,6 @@
 package com.radicalentity.Loofi.services;
 
+import com.radicalentity.Loofi.dto.DeleteRequest;
 import com.radicalentity.Loofi.dto.EmailRequest;
 import com.radicalentity.Loofi.dto.PasswordRequest;
 import com.radicalentity.Loofi.models.User;
@@ -58,6 +59,15 @@ public class UserService {
             return "Email changed";
         }
         return "Emails are the same";
+    }
+
+    public String deleteUser(DeleteRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (user.getId() != null) {
+            userRepository.delete(user);
+            return "User deleted";
+        }
+        return "User not found";
     }
 
 }

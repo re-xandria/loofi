@@ -84,7 +84,7 @@ function SignIn() {
     return(
         <Container fluid style={{height:100+"vh"}}>
             <Row style={{ height: "100%" }}>
-                <Col style={{ padding: 0, height: "100%" }}>
+                <Col sm={0} style={{ padding: 0, height: "100%" }}>
                     <Image fluid
                            style={{ width: "100%", height: "100%", objectFit: "cover" }} src={placeholder} alt="placeholder" />
                 </Col>
