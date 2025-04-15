@@ -8,7 +8,7 @@ import {UserContext} from "./Store";
 
 function SignUp() {
 
-    const [firstName, setFirstName] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -25,12 +25,12 @@ function SignUp() {
 
     useEffect(() => {
         console.log("valid fields updated");
-    }, [firstName, email, password, passwordConfirmation])
+    }, [displayName, email, password, passwordConfirmation])
 
     const onSubmit = async () => {
-        if (validateName(firstName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation){
+        if (validateName(displayName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation){
             try {
-                const res = await authAPI.signUp(firstName, email, password)
+                const res = await authAPI.signUp(displayName, email, password)
                 setUserInfo({email: email, token: res.data.token});
                 setIsAcctCreated(true);
                 alert("Account successfully created!");
@@ -44,17 +44,17 @@ function SignUp() {
             }
         } else  {
             console.log("Account could not be created")
-            console.log(firstName, email, password, passwordConfirmation)
+            console.log(displayName, email, password, passwordConfirmation)
         }
     }
 
     const handleName = (field) => {
         if (validateName(field.target.value)) {
             console.log("valid name given")
-            setFirstName(field.target.value);
+            setDisplayName(field.target.value);
         }
         else {
-            setFirstName('')
+            setDisplayName('')
             console.log("invalid name");
         }
     }
@@ -105,8 +105,8 @@ function SignUp() {
                     <h1>Sign Up</h1>
                     <p>Already have an account? <a href="/sign-in">Sign in</a></p>
                     <Form mx-md-2="true" style={{marginRight:10 + "rem"}}>
-                        <FormGroup style={{marginTop:2.5 + "rem"}} controlId="firstName">
-                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>First Name *</FormLabel>
+                        <FormGroup style={{marginTop:2.5 + "rem"}} controlId="displayName">
+                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Display Name *</FormLabel>
                             <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem"}} type="text"  placeholder="John" onChange={e => handleName(e)}/>
                         </FormGroup>
                         <FormGroup style={{marginTop:1 + "rem"}} controlId="email">

@@ -1,5 +1,3 @@
-// display dashboard
-
 import Navigation from "../../components/Navigation";
 import AdminDashboard from "../../components/dashboard/AdminDashboard";
 import UserDashboard from "../../components/dashboard/UserDashboard";

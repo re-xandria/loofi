@@ -3,6 +3,7 @@ package com.radicalentity.Loofi.services;
 import com.radicalentity.Loofi.dto.DeleteRequest;
 import com.radicalentity.Loofi.dto.EmailRequest;
 import com.radicalentity.Loofi.dto.PasswordRequest;
+import com.radicalentity.Loofi.dto.SearchRequest;
 import com.radicalentity.Loofi.models.User;
 import com.radicalentity.Loofi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +71,19 @@ public class UserService {
             return "User deleted";
         }
         return "User not found";
+    }
+
+    public List<User> findUsers(SearchRequest request) {
+       if (!request.getSearch().isEmpty()) {
+           List<User> users = userRepository.findAll();
+           users.removeIf(user ->
+                   !(user.getEmail().toLowerCase().contains(request.getSearch().toLowerCase()) ||
+                           user.getDisplayName().toLowerCase().contains(request.getSearch().toLowerCase()))
+           );
+           users.sort(Comparator.comparing(User::getEmail));
+           return users;
+       }
+       return null;
     }
 
 }

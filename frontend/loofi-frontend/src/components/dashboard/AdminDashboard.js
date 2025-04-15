@@ -5,7 +5,7 @@ import Avatar7 from "../../assets/Avatar 7.svg";
 import EditProfile from "../../features/account/EditProfile";
 import AccountSettings from "../../features/account/AccountSettings";
 
-const AdminDashboard = ({dashboard}) => {
+const AdminDashboard = () => {
 
     const [selectedPage, setSelectedPage] = useState('')
 

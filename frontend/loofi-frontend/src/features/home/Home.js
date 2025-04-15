@@ -5,7 +5,9 @@ import Navigation from "../../components/Navigation";
 function Home() {
 
     const [userInfo, setUserInfo] = useContext(UserContext);
-    useEffect(() => {
+    const [isChecked, setIsChecked] = useState(false);
+
+        useEffect(() => {
         const timer = setTimeout(() => {
             const email = localStorage.getItem("email");
             const token = localStorage.getItem("authToken");
@@ -17,7 +19,7 @@ function Home() {
 
     return (
         <>
-            <Navigation></Navigation>
+            <Navigation isChecked={isChecked} setIsChecked={setIsChecked}></Navigation>
             <div>
                 <p>You are on Loofi's Home Screen.</p>
                 {/*<p>{token.value}</p>*/}

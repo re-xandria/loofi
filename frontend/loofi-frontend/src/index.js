@@ -11,6 +11,7 @@ import Home from "./features/home/Home";
 import Store from "./features/auth/Store";
 import AccountDashboard from "./features/account/AccountDashboard";
 import AccountSettings from "./features/account/AccountSettings";
+import UserSearch from "./features/search/UserSearch";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router  = createBrowserRouter([
@@ -38,6 +39,10 @@ const router  = createBrowserRouter([
     {
         path: '/settings',
         element: <AccountSettings />
+    },
+    {
+        path: '/user-results',
+        element: <UserSearch />
     }
 ]);
 root.render(
