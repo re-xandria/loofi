@@ -8,3 +8,10 @@ export const changePassword = (email, password) => {
         password: password
     })
 }
+
+export const changeEmail = (currE, newE) => {
+    return axios.post(baseUrl + '/dashboard/email-settings', {
+        currentEmail: currE,
+        newEmail: newE
+    })
+}

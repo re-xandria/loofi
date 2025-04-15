@@ -6,7 +6,6 @@ import {useEffect, useState, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword} from "../validation/authValidation";
 import {UserContext} from "./Store";
-// import { UserContext } from "./Store";
 
 function SignIn() {
 
@@ -25,14 +24,31 @@ function SignIn() {
     }, [isLoggedIn, userInfo]);
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            const emailValue = document.getElementById("email").value;
+            const passwordValue = document.getElementById("password").value;
+
+            if (emailValue) setEmail(emailValue);
+            if (passwordValue) setPassword(passwordValue);
+        }, 100); // 100ms delay
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
         console.log("email and or password set");
     }, [email, password])
 
     const onSubmit = async () => {
         try {
-            const res = await authAPI.signIn(email, password)
-            setUserInfo({email: email, token: res.data.token});
+            const res = await authAPI.signIn(email, password);
+            const user = {email: email, token: res.data.token}
+            setUserInfo(user);
+            // console.log(res)
             setIsLoggedIn(true);
+            localStorage.setItem("authToken", user.token)
+            localStorage.setItem("email", user.email)
+            // console.log("Saved to storage:", localStorage.getItem("authToken"), localStorage.getItem("email"));
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 console.log("Unable to Authenticate", error);
@@ -42,8 +58,6 @@ function SignIn() {
             }
         }
     }
-
-    // BUG: handle functions do not execute properly when the fields are auto-populated by the browser
 
     const handleEmail = (field) => {
         if (validateEmail(field.target.value)) {

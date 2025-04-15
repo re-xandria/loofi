@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './styles/App.css';
-import React, {useEffect, useState} from "react";
-import Store from "./features/auth/Store";
+import React, {useContext, useEffect, useState} from "react";
+import Store, {UserContext} from "./features/auth/Store";
 import {Button, Container, Row} from "react-bootstrap";
 
 function App() {

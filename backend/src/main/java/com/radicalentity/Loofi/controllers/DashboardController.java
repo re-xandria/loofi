@@ -1,7 +1,7 @@
 package com.radicalentity.Loofi.controllers;
 
-import com.radicalentity.Loofi.dto.JwtAuthenticationResponse;
-import com.radicalentity.Loofi.dto.AccountRequest;
+import com.radicalentity.Loofi.dto.EmailRequest;
+import com.radicalentity.Loofi.dto.PasswordRequest;
 import com.radicalentity.Loofi.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +17,15 @@ public class DashboardController {
     private final UserService userService;
 
     @PostMapping("/password-settings")
-    public String changePassword(@RequestBody AccountRequest request) {
+    // will eventually need the PreAuthorize annotation to check token before executing
+    public String changePassword(@RequestBody PasswordRequest request) {
         return userService.changePassword(request);
+    }
+
+    @PostMapping("/email-settings")
+    // will eventually need the PreAuthorize annotation to check token before executing
+    public String changeEmail(@RequestBody EmailRequest request) {
+        return userService.changeEmail(request);
     }
 
 }

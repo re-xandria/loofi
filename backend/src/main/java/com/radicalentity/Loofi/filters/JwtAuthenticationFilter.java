@@ -2,6 +2,7 @@ package com.radicalentity.Loofi.filters;
 
 import com.radicalentity.Loofi.services.JwtService;
 import com.radicalentity.Loofi.services.UserService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
         jwt = authHeader.substring(7);
         log.debug("JWT: {}", jwt);
         userEmail = jwtService.extractUserName(jwt);

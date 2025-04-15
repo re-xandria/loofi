@@ -14,8 +14,30 @@ import Logo from "../assets/Loofi Dark Purple & Cyan.svg"
 import Controller_SVG from "../assets/Controller.svg"
 import Add_User_SVG from "../assets/Add User.svg"
 import Avatar7 from "../assets/Avatar 7.svg"
+import {useNavigate} from "react-router-dom";
+import {useEffect, useContext, use} from "react";
+import {UserContext} from "../features/auth/Store";
 
 function Navigation() {
+
+    const navigate = new useNavigate();
+    const [clearUserInfo] = useContext(UserContext);
+
+    const logOut = () => {
+        if (window.confirm("Are you sure you want to log out?")) {
+            clearInfo()
+            console.log("user logged out")
+            setTimeout(() => {
+                navigate('/');
+            }, 50);
+        }
+    }
+
+    const clearInfo = () => {
+        localStorage.removeItem('email');
+        localStorage.removeItem('token');
+        clearUserInfo();
+    }
 
     return(
         <Navbar expand="lg" bg="light" className="py-2 px-3">
@@ -44,6 +66,7 @@ function Navigation() {
                         <Col lg={4} md={3} className="d-flex justify-content-end align-items-center gap-3 my-2">
                             <NavLink href="/home">Home</NavLink>
                             <NavLink href="/dashboard">Account Dashboard</NavLink>
+                            <NavLink href="" onClick={logOut}>Log Out</NavLink>
                             <Image src={Avatar7} roundedCircle style={{ width: '40px' }} />
                         </Col>
 

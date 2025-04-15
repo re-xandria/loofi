@@ -4,7 +4,16 @@ import Navigation from "../../components/Navigation";
 
 function Home() {
 
-    const [token, setToken] = useContext(UserContext);
+    const [userInfo, setUserInfo] = useContext(UserContext);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const email = localStorage.getItem("email");
+            const token = localStorage.getItem("authToken");
+            if (email && token) setUserInfo({email:email, token:token});
+            console.log(userInfo)
+        }, 100)
+        return () => clearTimeout(timer);
+    }, [])
 
     return (
         <>
