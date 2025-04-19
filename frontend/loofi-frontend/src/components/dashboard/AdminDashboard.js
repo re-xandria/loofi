@@ -4,6 +4,7 @@ import {Button, Col, Container, Form, Image, Nav, Row} from "react-bootstrap";
 import Avatar7 from "../../assets/Avatar 7.svg";
 import EditProfile from "../../features/account/EditProfile";
 import AccountSettings from "../../features/account/AccountSettings";
+import Analytics from "../../features/account/Analytics";
 
 const AdminDashboard = () => {
 
@@ -18,7 +19,7 @@ const AdminDashboard = () => {
             case "friends":
                 return
             case "reporting":
-                return
+                return <Analytics></Analytics>
             default:
                 return <EditProfile></EditProfile>
         }
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
                                 <Nav.Link eventKey="settings" onClick={() => setSelectedPage('settings')}>Account Settings</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="friends"onClick={() => setSelectedPage('friends')}>Manage Friend Network</Nav.Link>
+                                <Nav.Link eventKey="friends" onClick={() => setSelectedPage('friends')}>Manage Friend Network</Nav.Link>
                                 {/*  admins get function to change user to admin  */}
                             </Nav.Item>
                             <Nav.Item>

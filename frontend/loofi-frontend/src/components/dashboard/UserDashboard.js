@@ -1,50 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import BaseDashboard from "../dashboard/BaseDashboard";
 import {Button, Col, Container, Form, Image, Nav, Row} from "react-bootstrap";
 import Avatar7 from "../../assets/Avatar 7.svg";
+import AccountSettings from "../../features/account/AccountSettings";
+import Analytics from "../../features/account/Analytics";
+import EditProfile from "../../features/account/EditProfile";
 
 const UserDashboard = () => {
+
+    const [selectedPage, setSelectedPage] = useState('')
+
+    const changePage = () => {
+        switch(selectedPage) {
+            case "achievements":
+                return
+            case "settings":
+                return <AccountSettings></AccountSettings>
+            case "friends":
+                return
+            default:
+                return <EditProfile></EditProfile>
+        }
+    }
+
     return (
-        <BaseDashboard title="User">
+        <BaseDashboard title="user">
             <Container>
                 <Row className="mt-5 gap-5 flex">
-                    <Col lg={7}>
-
-                        <h3>Account Dashboard </h3>
-                        <hr/>
-
-                        <Row className="mt-4 flex-wrap">
-                            <Col lg={4}>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} className="p-1" width="150px"/>
-                            </Col>
-                            <Col  className="d-flex flex-wrap gap-2">
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} className="p-1" width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                                <Image src={Avatar7} roundedCircle style={{background:"grey"}} width="75px"/>
-                            </Col>
-                        </Row>
-
-                        <Row className="my-4">
-                            <Form>
-                                <Form.Group className="mb-4" controlId="displayName">
-                                    <Form.Label>Display Name</Form.Label>
-                                    <Form.Control type="text" placeholder="The Loofi King" />
-                                </Form.Group>
-                                <Form.Group className="mb-4" controlId="bio">
-                                    <Form.Label>Bio</Form.Label>
-                                    <Form.Control as="textarea" rows={4} placeholder="Here's all about me!" />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Button type="button">Save Changes</Button>
-                                </Form.Group>
-                            </Form>
-                        </Row>
-
+                    <Col lg={6} >
+                        {changePage()}
                     </Col>
 
                     <Col lg={4} >
@@ -52,18 +36,18 @@ const UserDashboard = () => {
                         <h3>Account Dashboard</h3>
                         <hr/>
 
-                        <Nav variant="pills" defaultActiveKey="/dashboard" className="flex-column">
+                        <Nav variant="pills" defaultActiveKey="dashboard" className="flex-column">
                             <Nav.Item>
-                                <Nav.Link >Edit Profile</Nav.Link>
+                                <Nav.Link eventKey="dashboard" onClick={() => setSelectedPage('')}>Edit Profile</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="achievements" href="">Achievements</Nav.Link>
+                                <Nav.Link eventKey="achievements" onClick={() => setSelectedPage('achievements')}>Achievements</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="settings" href="/settings" >Account Settings</Nav.Link>
+                                <Nav.Link eventKey="settings" onClick={() => setSelectedPage('settings')}>Account Settings</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="friends" href="" >Manage Friend Network</Nav.Link>
+                                <Nav.Link eventKey="friends" onClick={() => setSelectedPage('friends')}>Manage Friend Network</Nav.Link>
                             </Nav.Item>
                         </Nav>
 

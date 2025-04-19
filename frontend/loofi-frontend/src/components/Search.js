@@ -10,13 +10,9 @@ function Search({ isChecked, setIsChecked }) {
     const [searchInput, setSearchInput] = useState('');
     const navigate = new useNavigate();
 
-    console.log("ComponentName:", { isChecked, setIsChecked });
+    // console.log("ComponentName:", { isChecked, setIsChecked });
 
     const handleToggle = () => setIsChecked(prev => !prev);
-
-    useEffect(() => {
-        console.log("search field changed");
-    }, [searchInput])
 
     const handleInput = (value) => {
         setSearchInput(value.target.value)

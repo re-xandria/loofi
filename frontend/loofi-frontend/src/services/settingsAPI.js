@@ -21,3 +21,9 @@ export const deleteAccount = (email) => {
         email: email
     })
 }
+
+export const isAdmin = (email) => {
+    return axios.post(baseUrl + '/dashboard/auth-admin', {
+        email: email
+    })
+}

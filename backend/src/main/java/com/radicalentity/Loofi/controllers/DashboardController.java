@@ -3,12 +3,10 @@ package com.radicalentity.Loofi.controllers;
 import com.radicalentity.Loofi.dto.DeleteRequest;
 import com.radicalentity.Loofi.dto.EmailRequest;
 import com.radicalentity.Loofi.dto.PasswordRequest;
+import com.radicalentity.Loofi.dto.RoleRequest;
 import com.radicalentity.Loofi.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -33,6 +31,11 @@ public class DashboardController {
     // will eventually need the PreAuthorize annotation to check token before executing
     public String deleteUser(@RequestBody DeleteRequest request) {
         return userService.deleteUser(request);
+    }
+
+    @PostMapping("/auth-admin")
+    public Boolean isAdmin(@RequestBody RoleRequest request) {
+        return userService.isAdmin(request);
     }
 
 }

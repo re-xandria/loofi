@@ -42,13 +42,12 @@ function SignIn() {
     const onSubmit = async () => {
         try {
             const res = await authAPI.signIn(email, password);
-            const user = {email: email, token: res.data.token}
-            setUserInfo(user);
+            setUserInfo({email: email, token: res.data.token, role: "user"});
             // console.log(res)
             setIsLoggedIn(true);
-            localStorage.setItem("authToken", user.token)
-            localStorage.setItem("email", user.email)
-            // console.log("Saved to storage:", localStorage.getItem("authToken"), localStorage.getItem("email"));
+            localStorage.setItem("authToken", res.data.token);
+            localStorage.setItem("email", email);
+            localStorage.setItem("role", "user");
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 console.log("Unable to Authenticate", error);

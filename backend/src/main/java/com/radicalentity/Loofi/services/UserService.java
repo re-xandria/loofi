@@ -1,9 +1,6 @@
 package com.radicalentity.Loofi.services;
 
-import com.radicalentity.Loofi.dto.DeleteRequest;
-import com.radicalentity.Loofi.dto.EmailRequest;
-import com.radicalentity.Loofi.dto.PasswordRequest;
-import com.radicalentity.Loofi.dto.SearchRequest;
+import com.radicalentity.Loofi.dto.*;
 import com.radicalentity.Loofi.models.User;
 import com.radicalentity.Loofi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -84,6 +81,14 @@ public class UserService {
            return users;
        }
        return null;
+    }
+
+    public Boolean isAdmin(RoleRequest request) {
+        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+            User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            return user.getRole().toString().equals("ROLE_ADMIN");
+        }
+        return null;
     }
 
 }

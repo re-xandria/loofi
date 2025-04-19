@@ -1,18 +1,13 @@
-// reusable dashboard component, changes if admin or regular user
 
-import {Button, Col, Container, Form, FormGroup, Image, Nav, Row} from "react-bootstrap";
 import Navigation from "../../components/Navigation";
-
-/*
-    Possibly pass the dashboard tabs into the base dashboard if admin view will have extra tabs
-*/
 
 function BaseDashboard({ title, children }) {
     return(
         <>
             <Navigation></Navigation>
+            {/* Toggling search switch in account dashboard causes "setIsChecked" error, props not being passed to dashboard page/components */}
             <div>{children}</div>
-            <footer className="fixed-bottom my-5 mx-5">You are viewing this page as an {title}.</footer>
+            <footer className="fixed-bottom my-5 mx-5">You are viewing this page in {title} mode.</footer>
         </>
     )
 }

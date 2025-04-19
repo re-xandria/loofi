@@ -12,7 +12,7 @@ function Home() {
             const email = localStorage.getItem("email");
             const token = localStorage.getItem("authToken");
             if (email && token) setUserInfo({email:email, token:token});
-            console.log(userInfo)
+            // console.log(userInfo)
         }, 100)
         return () => clearTimeout(timer);
     }, [])

@@ -15,8 +15,8 @@ function AccountSettings() {
 
     useEffect(() => {
         console.log("valid fields updated");
-        console.log(userInfo.email)
-    }, [password, passwordConfirmation])
+        console.log(userInfo.email);
+    }, [])
 
     const handleEmail = (field) => {
         if (validateEmail(field.target.value)) {

@@ -24,8 +24,6 @@ function Navigation({ isChecked, setIsChecked }) {
     const navigate = new useNavigate();
     const [userInfo, clearUserInfo] = useContext(UserContext);
 
-    console.log("ComponentName:", { isChecked, setIsChecked });
-
     useEffect(() => {
         if (userInfo.token === '') navigate("/")
     }, []);
@@ -67,7 +65,7 @@ function Navigation({ isChecked, setIsChecked }) {
                         <Col lg={4} md={3} className="d-flex justify-content-end align-items-center gap-3 my-2">
                             <NavLink href="/home">Home</NavLink>
                             <NavLink href="/dashboard">Account Dashboard</NavLink>
-                            <NavLink href="" onClick={logOut}>Log Out</NavLink>
+                            <NavLink onClick={logOut}>Log Out</NavLink>
                             <Image src={Avatar7} roundedCircle style={{ width: '40px' }} />
                         </Col>
 
