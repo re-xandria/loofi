@@ -6,7 +6,7 @@ import EditProfile from "../../features/account/EditProfile";
 import AccountSettings from "../../features/account/AccountSettings";
 import Analytics from "../../features/account/Analytics";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ isChecked }) => {
 
     const [selectedPage, setSelectedPage] = useState('')
 
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
 
     return (
-        <BaseDashboard title="admin">
+        <BaseDashboard title="admin" isChecked = {isChecked}>
             <Container>
                 <Row className="mt-5 gap-5 flex">
                     <Col lg={6} >

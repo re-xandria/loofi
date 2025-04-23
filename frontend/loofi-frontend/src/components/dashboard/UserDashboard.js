@@ -6,7 +6,7 @@ import AccountSettings from "../../features/account/AccountSettings";
 import Analytics from "../../features/account/Analytics";
 import EditProfile from "../../features/account/EditProfile";
 
-const UserDashboard = () => {
+const UserDashboard = ({ isChecked }) => {
 
     const [selectedPage, setSelectedPage] = useState('')
 
@@ -24,7 +24,7 @@ const UserDashboard = () => {
     }
 
     return (
-        <BaseDashboard title="user">
+        <BaseDashboard title="user" isChecked = {isChecked}>
             <Container>
                 <Row className="mt-5 gap-5 flex">
                     <Col lg={6} >

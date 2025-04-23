@@ -1,18 +1,18 @@
 import Controller_SVG from "../assets/Controller.svg";
-import {Button, Form} from "react-bootstrap";
+import Search_SVG from "../assets/Search.svg"
+import {Button, Form, Image, NavLink} from "react-bootstrap";
 import Add_User_SVG from "../assets/Add User.svg";
 import * as searchAPI from "../services/searchAPI";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
-function Search({ isChecked, setIsChecked }) {
+function Search({ isChecked }) {
 
     const [searchInput, setSearchInput] = useState('');
     const navigate = new useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    // console.log("ComponentName:", { isChecked, setIsChecked });
-
-    const handleToggle = () => setIsChecked(prev => !prev);
+    const handleToggle = () => setSearchParams({"isChecked": (!isChecked).toString() });
 
     const handleInput = (value) => {
         setSearchInput(value.target.value)
@@ -34,12 +34,12 @@ function Search({ isChecked, setIsChecked }) {
 
     return (
         <>
-            <img src={Controller_SVG} alt="Games Icon" style={{ width: '25px' }} />
+            <img src={Controller_SVG} alt="Games Icon" style={{ scale: '60%' }} />
             <Form.Check type="switch" checked={isChecked} onChange={handleToggle} id="search-toggle" className="ms-3" style={{ transform: 'scale(1.5)'}}/>
-            <img src={Add_User_SVG} alt="Add Friends Icon" style={{ width: '20px' }} />
+            <img src={Add_User_SVG} alt="Add Friends Icon" style={{ scale: '60%' }} />
             <Form className="d-flex w-50">
                 <Form.Control type="text" placeholder="Search" className="me-2" onChange={e => {handleInput(e)}} />
-                <Button type="button" onClick={onSubmit}>Submit</Button>
+                <NavLink type="button" variant="light" onClick={onSubmit}><Image  /><Image src={Search_SVG} style={{ scale: '60%' }} /></NavLink>
             </Form>
         </>
     )

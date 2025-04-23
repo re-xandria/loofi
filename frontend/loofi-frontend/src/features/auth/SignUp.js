@@ -5,6 +5,8 @@ import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validateName, validatePassword} from "../validation/authValidation";
 import {UserContext} from "./Store";
+import logo from "../../assets/Loofi Dark Purple & Cyan.svg";
+import pattern from "../../assets/Loofi Pattern.svg";
 
 function SignUp() {
 
@@ -96,11 +98,11 @@ function SignUp() {
     return(
         <Container fluid style={{height:100+"vh"}}>
             <Row style={{ height: "100%" }}>
-                <Col style={{ padding: 0, height: "100%" }}>
+                <Col sm={0} style={{ padding: 0, height: "100%" }} className="position-relative" >
+                    <Image fluid className="position-absolute w-100 h-100" style={{scale: 40+"%"}} src={logo} alt="Loofi logo"/>
                     <Image fluid
-                           style={{ width: "100%", height: "100%", objectFit: "cover" }} src={placeholder} alt="placeholder" />
+                           style={{ width: "100%", height: "100%", objectFit: "cover" }} src={pattern} alt="pattern" />
                 </Col>
-                {/* pattern and logo on left*/}
                 <Col fluid="true" style={{ margin: "auto", textAlign:"left", paddingInlineStart:20 + "em", paddingInlineEnd:20 + "em"}}  id="sign-in" lg={7} >
                     <h1>Sign Up</h1>
                     <p>Already have an account? <a href="/sign-in">Sign in</a></p>

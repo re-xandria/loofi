@@ -4,17 +4,20 @@ import UserDashboard from "../../components/dashboard/UserDashboard";
 import {useContext, useEffect} from "react";
 import {UserContext} from "../auth/Store";
 import * as settingsAPI from "../../services/settingsAPI";
+import {useSearchParams} from "react-router-dom";
 
 function AccountDashboard() {
 
     const [userInfo, setUserInfo] = useContext((UserContext));
+    const [searchParams] = useSearchParams();
+    const isChecked = searchParams.get("isChecked") === "true";
 
     useEffect( () => {
         const timer = setTimeout(() => {
             setRole();
         }, 100);
         return () => clearTimeout(timer);
-    })
+    }, []);
 
     const setRole = async () => {
         try {
@@ -30,9 +33,9 @@ function AccountDashboard() {
 
     switch (userInfo.role) {
         case "admin":
-            return <AdminDashboard />;
+            return <AdminDashboard isChecked = {isChecked} />;
         default:
-            return <UserDashboard />;
+            return <UserDashboard isChecked = {isChecked} />;
     }
 }
 

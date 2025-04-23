@@ -1,25 +1,15 @@
-import {
-    Button, Col,
-    Container,
-    Form,
-    Image,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavbarCollapse,
-    NavbarToggle,
-    NavLink, Row
-} from "react-bootstrap";
+import { Col, Container, Image, Navbar, NavLink, Row } from "react-bootstrap";
 import Logo from "../assets/Loofi Dark Purple & Cyan.svg"
-import Controller_SVG from "../assets/Controller.svg"
-import Add_User_SVG from "../assets/Add User.svg"
+import Home from "../assets/Home.svg";
+import Dashboard from "../assets/Dashboard.svg";
+import Logout from "../assets/Logout.svg"
 import Avatar7 from "../assets/Avatar 7.svg"
 import {useNavigate} from "react-router-dom";
 import {useEffect, useContext, use} from "react";
 import {UserContext} from "../features/auth/Store";
 import Search from "./Search";
 
-function Navigation({ isChecked, setIsChecked }) {
+function Navigation({ isChecked }) {
 
     const navigate = new useNavigate();
     const [userInfo, clearUserInfo] = useContext(UserContext);
@@ -55,18 +45,17 @@ function Navigation({ isChecked, setIsChecked }) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 <Navbar.Collapse id="basic-navbar-nav" className="w-100">
-                    <Row className="w-100 align-items-center justify-content-between flex-grow-1">
+                    <Row className="w-100 justify-content-end flex-grow-1">
 
-                        {/* Replace with Search component */}
-                        <Col xl={7} md={6} className="d-flex justify-content-center align-items-center gap-3 my-2 ms-lg-5">
-                            <Search isChecked={isChecked} setIsChecked={setIsChecked}></Search>
+                        <Col xl={7} md={6} className="d-flex justify-content-center align-items-center gap-2 my-2 ms-lg-5">
+                            <Search isChecked={isChecked}></Search>
                         </Col>
 
-                        <Col lg={4} md={3} className="d-flex justify-content-end align-items-center gap-3 my-2">
-                            <NavLink href="/home">Home</NavLink>
-                            <NavLink href="/dashboard">Account Dashboard</NavLink>
-                            <NavLink onClick={logOut}>Log Out</NavLink>
-                            <Image src={Avatar7} roundedCircle style={{ width: '40px' }} />
+                        <Col lg={4} md={3} className="d-flex justify-content-end align-items-center gap-2 my-2">
+                            <NavLink href={`/home?isChecked=${isChecked}`}><Image src={Home} alt="Home" style={{ scale: '60%' }}/></NavLink>
+                            <NavLink href={`/dashboard?isChecked=${isChecked}`}><Image src={Dashboard} style={{ scale: '60%' }}/></NavLink>
+                            <NavLink onClick={logOut}><Image src={Logout} style={{ scale: '60%' }}/></NavLink>
+                            <Image src={Avatar7} roundedCircle style={{ width: '50px' }} />
                         </Col>
 
                     </Row>
