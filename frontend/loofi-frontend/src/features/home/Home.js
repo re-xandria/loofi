@@ -1,9 +1,8 @@
 import { UserContext } from "../auth/Store";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Navigation from "../../components/Navigation";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {Button, Col, Container, Form, Image, Nav, Row} from "react-bootstrap";
-import placeholder from "../../assets/placeholder.png"
+import {Col, Container, Image, Row} from "react-bootstrap";
 import Thumbnail from "../../assets/Game Thumbnail.svg"
 
 function Home() {
@@ -41,23 +40,23 @@ function Home() {
                                 <Col lg={5}>
                                     <Image thumbnail fluid src={Thumbnail}></Image>
                                 </Col>
-                                <Col lg={6} className="align-content-center">
-                                    <h4>Game Title</h4>
-                                    <p>This is sample text representing the description for a game.</p>
+                                <Col lg={6} className="d-flex flex-column gap-2 justify-content-center align-content-center">
+                                    <h4>Roshambo</h4>
+                                    <p>A classic hand-game where 2 players randomly throw rock, paper, or scissors to try and beat the other!</p>
                                 </Col>
                             </Row>
 
-                            <Row className="gap-2 my-4" onClick={goToGamePage}>
+                            <Row className="gap-2 my-4" >
                                 <Col lg={5}>
                                     <Image thumbnail fluid src={Thumbnail}></Image>
                                 </Col>
-                                <Col lg={6} className="align-content-center">
+                                <Col lg={6} className="d-flex flex-column gap-2 justify-content-center align-content-center">
                                     <h4>Game Title</h4>
                                     <p>This is sample text representing the description for a game.</p>
                                 </Col>
                             </Row>
 
-                            <Row className="gap-2 my-4" onClick={goToGamePage}>
+                            <Row className="gap-2 my-4" >
                                 <Col lg={5}>
                                     <Image thumbnail fluid src={Thumbnail}></Image>
                                 </Col>
