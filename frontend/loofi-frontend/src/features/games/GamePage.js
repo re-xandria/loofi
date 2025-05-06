@@ -37,7 +37,7 @@ function GamePage() {
                             </div>
                             <div className="d-flex flex-column gap-3 px-lg-5 my-lg-5">
                                 <h4><i>About Roshambo!</i></h4>
-                                <p>This is a description for the selected game. The description will be several sentences long. This is a description for the selected game. The description will be several sentences long. This is a description for the selected game. The description will be several sentences long.</p>
+                                <p>A simple digital version of the classic game. Choose rock, paper, or scissors and see if you can beat the computer. No fancy extras, just quick, easy fun.</p>
                                 <div className="d-flex gap-2">
                                     <Button variant="light">#Classic</Button>
                                     <Button variant="light">#PvC</Button>
