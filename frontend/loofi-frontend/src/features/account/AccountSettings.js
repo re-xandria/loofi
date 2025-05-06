@@ -1,8 +1,7 @@
-import {Button, Col, Form, FormLabel, FormText, Image, Row} from "react-bootstrap";
-import Avatar7 from "../../assets/Avatar 7.svg";
+import {Button, Form, Row} from "react-bootstrap";
 import React, {useContext, useEffect, useState} from "react";
 import * as settingsAPI from "../../services/settingsAPI";
-import { UserContext } from "../auth/Store";
+import {UserContext} from "../auth/Store";
 import {validateEmail, validatePassword} from "../validation/authValidation";
 import {useNavigate} from "react-router-dom";
 
@@ -22,8 +21,7 @@ function AccountSettings() {
         if (validateEmail(field.target.value)) {
             console.log("valid email given")
             setEmail(field.target.value);
-        }
-        else {
+        } else {
             setEmail('')
             console.log("invalid email");
         }
@@ -34,18 +32,15 @@ function AccountSettings() {
             if (validatePassword(field.target.value)) {
                 console.log("valid password given")
                 setPassword(field.target.value);
-            }
-            else {
+            } else {
                 setPassword('')
                 console.log("invalid password");
             }
-        }
-        else {
+        } else {
             if (validatePassword(field.target.value)) {
                 console.log("valid password given")
                 setPasswordConfirmation(field.target.value);
-            }
-            else {
+            } else {
                 setPasswordConfirmation('')
                 console.log("invalid password");
             }
@@ -107,7 +102,8 @@ function AccountSettings() {
                     <h5 className="mb-2">Change Email</h5>
                     <Form.Group className="mb-4" controlId="email">
                         <Form.Label>New Email Address</Form.Label>
-                        <Form.Control type="text" placeholder="john.appleseed@email.com" onChange={e => handleEmail(e)}/>
+                        <Form.Control type="text" placeholder="john.appleseed@email.com"
+                                      onChange={e => handleEmail(e)}/>
                     </Form.Group>
                     <Form.Group>
                         <Button type="button" disabled={false} onClick={onSubmitEmail}>Save Changes</Button>

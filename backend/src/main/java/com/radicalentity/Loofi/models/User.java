@@ -16,17 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @ToString
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     String email;
 
-    @Column(unique=true)
+    @Column(unique = true)
     String displayName;
 
     String password;

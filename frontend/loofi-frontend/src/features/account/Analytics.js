@@ -12,7 +12,7 @@ function Analytics() {
         })
     }, []);
 
-    const getUsers = async ()  => {
+    const getUsers = async () => {
         try {
             const res = await searchAPI.findUsers("@");
             console.log(res.data);
@@ -22,24 +22,24 @@ function Analytics() {
         }
     }
 
-    return(
+    return (
         <>
             <Row className="d-flex">
                 <Col>
                     <h3>Analytics Reporting</h3>
                 </Col>
                 <Col>
-                <SplitButton
-                    key="down"
-                    id="dropdown-button-drop-down"
-                    drop="down"
-                    variant="primary"
-                    title="Select Report"
-                >
-                    <Dropdown.Item eventKey="1" active>User Accounts</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item eventKey="2" disabled={true}>User Statistics</Dropdown.Item>
-                </SplitButton>
+                    <SplitButton
+                        key="down"
+                        id="dropdown-button-drop-down"
+                        drop="down"
+                        variant="primary"
+                        title="Select Report"
+                    >
+                        <Dropdown.Item eventKey="1" active>User Accounts</Dropdown.Item>
+                        <Dropdown.Divider/>
+                        <Dropdown.Item eventKey="2" disabled={true}>User Statistics</Dropdown.Item>
+                    </SplitButton>
                 </Col>
             </Row>
             <hr/>
@@ -56,14 +56,14 @@ function Analytics() {
                         </tr>
                         </thead>
                         <tbody>
-                            {users.map((item) => (
-                                <tr>
-                                    <td>{item.displayName}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.role.substring(5)}</td>
-                                    <td>{new Date(item.createdAt).toLocaleString()}</td>
-                                </tr>
-                            ))}
+                        {users.map((item) => (
+                            <tr>
+                                <td>{item.displayName}</td>
+                                <td>{item.email}</td>
+                                <td>{item.role.substring(5)}</td>
+                                <td>{new Date(item.createdAt).toLocaleString()}</td>
+                            </tr>
+                        ))}
                         </tbody>
                     </Table>
                 </Col>

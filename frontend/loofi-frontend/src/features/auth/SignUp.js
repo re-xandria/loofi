@@ -1,5 +1,4 @@
 import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Image, Row} from "react-bootstrap";
-import placeholder from "../../assets/placeholder.png";
 import * as authAPI from "../../services/authAPI";
 import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -30,7 +29,7 @@ function SignUp() {
     }, [displayName, email, password, passwordConfirmation])
 
     const onSubmit = async () => {
-        if (validateName(displayName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation){
+        if (validateName(displayName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation) {
             try {
                 const res = await authAPI.signUp(displayName, email, password)
                 setUserInfo({email: email, token: res.data.token});
@@ -44,7 +43,7 @@ function SignUp() {
                     console.log("Something went wrong. Try again.")
                 }
             }
-        } else  {
+        } else {
             console.log("Account could not be created")
             console.log(displayName, email, password, passwordConfirmation)
         }
@@ -54,8 +53,7 @@ function SignUp() {
         if (validateName(field.target.value)) {
             console.log("valid name given")
             setDisplayName(field.target.value);
-        }
-        else {
+        } else {
             setDisplayName('')
             console.log("invalid name");
         }
@@ -65,8 +63,7 @@ function SignUp() {
         if (validateEmail(field.target.value)) {
             console.log("valid email given")
             setEmail(field.target.value);
-        }
-        else {
+        } else {
             setEmail('')
             console.log("invalid email");
         }
@@ -77,53 +74,92 @@ function SignUp() {
             if (validatePassword(field.target.value)) {
                 console.log("valid password given")
                 setPassword(field.target.value);
-            }
-            else {
+            } else {
                 setPassword('')
                 console.log("invalid password");
             }
-        }
-        else {
+        } else {
             if (validatePassword(field.target.value)) {
                 console.log("valid password given")
                 setPasswordConfirmation(field.target.value);
-            }
-            else {
+            } else {
                 setPasswordConfirmation('')
                 console.log("invalid password");
             }
         }
     }
 
-    return(
-        <Container fluid style={{height:100+"vh"}}>
-            <Row style={{ height: "100%" }}>
-                <Col sm={0} style={{ padding: 0, height: "100%" }} className="position-relative" >
-                    <Image fluid className="position-absolute w-100 h-100" style={{scale: 40+"%"}} src={logo} alt="Loofi logo"/>
+    return (
+        <Container fluid style={{height: 100 + "vh"}}>
+            <Row style={{height: "100%"}}>
+                <Col sm={0} style={{padding: 0, height: "100%"}} className="position-relative">
+                    <Image fluid className="position-absolute w-100 h-100" style={{scale: 40 + "%"}} src={logo}
+                           alt="Loofi logo"/>
                     <Image fluid
-                           style={{ width: "100%", height: "100%", objectFit: "cover" }} src={pattern} alt="pattern" />
+                           style={{width: "100%", height: "100%", objectFit: "cover"}} src={pattern} alt="pattern"/>
                 </Col>
-                <Col fluid="true" style={{ margin: "auto", textAlign:"left", paddingInlineStart:20 + "em", paddingInlineEnd:20 + "em"}}  id="sign-in" lg={7} >
+                <Col fluid="true" style={{
+                    margin: "auto",
+                    textAlign: "left",
+                    paddingInlineStart: 20 + "em",
+                    paddingInlineEnd: 20 + "em"
+                }} id="sign-in" lg={7}>
                     <h1>Sign Up</h1>
                     <p>Already have an account? <a href="/sign-in">Sign in</a></p>
-                    <Form mx-md-2="true" style={{marginRight:10 + "rem"}}>
-                        <FormGroup style={{marginTop:2.5 + "rem"}} controlId="displayName">
-                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Display Name *</FormLabel>
-                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem"}} type="text"  placeholder="John" onChange={e => handleName(e)}/>
+                    <Form mx-md-2="true" style={{marginRight: 10 + "rem"}}>
+                        <FormGroup style={{marginTop: 2.5 + "rem"}} controlId="displayName">
+                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Display Name *</FormLabel>
+                            <FormControl style={{
+                                display: "block",
+                                paddingTop: .75 + "rem",
+                                paddingBottom: .75 + "rem",
+                                paddingLeft: 1 + "rem",
+                                paddingRight: 1 + "rem",
+                                width: 20 + "rem"
+                            }} type="text" placeholder="John" onChange={e => handleName(e)}/>
                         </FormGroup>
-                        <FormGroup style={{marginTop:1 + "rem"}} controlId="email">
-                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Email Address *</FormLabel>
-                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem", marginBottom:3 + "rem"}} type="email"  placeholder="john.appleseed@email.com" onChange={e => handleEmail(e)}/>
+                        <FormGroup style={{marginTop: 1 + "rem"}} controlId="email">
+                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Email Address *</FormLabel>
+                            <FormControl style={{
+                                display: "block",
+                                paddingTop: .75 + "rem",
+                                paddingBottom: .75 + "rem",
+                                paddingLeft: 1 + "rem",
+                                paddingRight: 1 + "rem",
+                                width: 20 + "rem",
+                                marginBottom: 3 + "rem"
+                            }} type="email" placeholder="john.appleseed@email.com" onChange={e => handleEmail(e)}/>
                         </FormGroup>
                         <FormGroup controlId="password">
-                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Password *</FormLabel>
-                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem" }} type="password" onChange={e => handlePassword(e)} />
+                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Password *</FormLabel>
+                            <FormControl style={{
+                                display: "block",
+                                paddingTop: .75 + "rem",
+                                paddingBottom: .75 + "rem",
+                                paddingLeft: 1 + "rem",
+                                paddingRight: 1 + "rem",
+                                width: 20 + "rem"
+                            }} type="password" onChange={e => handlePassword(e)}/>
                         </FormGroup>
-                        <FormGroup style={{marginTop:1 + "rem"}} controlId="passwordConfirm">
-                            <FormLabel style={{display:"block", marginBottom:.5 + "rem"}}>Confirm Password *</FormLabel>
-                            <FormControl style={{display:"block", paddingTop:.75 + "rem", paddingBottom:.75 + "rem", paddingLeft:1 + "rem", paddingRight:1 + "rem", width: 20 + "rem" }} type="password" onChange={e => handlePassword(e)}/>
+                        <FormGroup style={{marginTop: 1 + "rem"}} controlId="passwordConfirm">
+                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Confirm Password
+                                *</FormLabel>
+                            <FormControl style={{
+                                display: "block",
+                                paddingTop: .75 + "rem",
+                                paddingBottom: .75 + "rem",
+                                paddingLeft: 1 + "rem",
+                                paddingRight: 1 + "rem",
+                                width: 20 + "rem"
+                            }} type="password" onChange={e => handlePassword(e)}/>
                         </FormGroup>
-                        <Button style={{paddingInlineStart:1 + "rem", paddingInlineEnd:1 + "rem", paddingBlockStart: .75+ "rem", paddingBlockEnd: .75+ "rem", width: 20 + "rem" }} type="button" onClick={onSubmit}>Register Account</Button>
+                        <Button style={{
+                            paddingInlineStart: 1 + "rem",
+                            paddingInlineEnd: 1 + "rem",
+                            paddingBlockStart: .75 + "rem",
+                            paddingBlockEnd: .75 + "rem",
+                            width: 20 + "rem"
+                        }} type="button" onClick={onSubmit}>Register Account</Button>
                     </Form>
                 </Col>
             </Row>

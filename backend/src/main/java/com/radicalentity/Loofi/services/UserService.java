@@ -71,16 +71,16 @@ public class UserService {
     }
 
     public List<User> findUsers(SearchRequest request) {
-       if (!request.getSearch().isEmpty()) {
-           List<User> users = userRepository.findAll();
-           users.removeIf(user ->
-                   !(user.getEmail().toLowerCase().contains(request.getSearch().toLowerCase()) ||
-                           user.getDisplayName().toLowerCase().contains(request.getSearch().toLowerCase()))
-           );
-           users.sort(Comparator.comparing(User::getEmail));
-           return users;
-       }
-       return null;
+        if (!request.getSearch().isEmpty()) {
+            List<User> users = userRepository.findAll();
+            users.removeIf(user ->
+                    !(user.getEmail().toLowerCase().contains(request.getSearch().toLowerCase()) ||
+                            user.getDisplayName().toLowerCase().contains(request.getSearch().toLowerCase()))
+            );
+            users.sort(Comparator.comparing(User::getEmail));
+            return users;
+        }
+        return null;
     }
 
     public Boolean isAdmin(RoleRequest request) {

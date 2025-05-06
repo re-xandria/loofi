@@ -1,6 +1,10 @@
 import {useLocation} from "react-router-dom";
 import Navigation from "../../components/Navigation";
-import {useState} from "react";
+import React, {useState} from "react";
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import Add from "../../assets/Checkmark.svg";
+import Block from "../../assets/Block.png";
+import View from "../../assets/Eyes.svg";
 
 function UserSearch() {
 
@@ -8,19 +12,77 @@ function UserSearch() {
     const results = location.state?.results;
     const [isChecked, setIsChecked] = useState(true);
 
-    console.log("ComponentName:", { isChecked, setIsChecked });
+    console.log("ComponentName:", {isChecked, setIsChecked});
 
-    return(
+    return (
         <>
             <Navigation isChecked={isChecked} setIsChecked={setIsChecked}></Navigation>
-            <h1>Viewing results</h1>
-            <div>
-                {results[0] ? (
-                    results.map((item, idx) => <p key={idx}>{item.email}</p>)
-                ) : (
-                    <p>No results found.</p>
-                )}
-            </div>
+            <Container>
+                <Row className="mt-5 gap-5">
+                    <Col lg={7}>
+                        <h3>User Profiles</h3>
+                        <hr/>
+                        <Container className={"mt-3 d-flex flex-column gap-2"}>
+                            {results[0] ? (
+                                results.map((item, idx) =>
+                                    <Row className={"py-2 align-items-center"} key={idx}>
+                                        <Col sm={3}><h4>{item.displayName}</h4></Col>
+                                        <Col sm={4}><p className={"m-0"}>{item.email}</p></Col>
+                                        <Col className={"d-flex gap-3"}>
+                                            <Button variant={"outline-light"} style={{
+                                                borderRadius: "100%",
+                                                width: "40px",
+                                                height: "40px",
+                                                border: "1px, solid, #e5e5e5",
+                                                objectFit:"cover"
+                                                }}>
+                                                <Image
+                                                    fluid
+                                                    src={Add}
+                                                    style={{
+                                                        scale: "130%"
+                                                    }}
+                                                >
+                                                </Image>
+                                            </Button>
+                                            <Button disabled variant={"light"} style={{
+                                                borderRadius: "100%",
+                                                width: "40px",
+                                                height: "40px",
+                                                border: "1px, solid, #e5e5e5"}}>
+                                                <Image
+                                                    fluid
+                                                    src={View}
+                                                    style={{
+                                                        scale: "150%"
+                                                    }}
+                                                >
+                                                </Image>
+                                            </Button>
+                                            <Button disabled variant={"light"} style={{
+                                                borderRadius: "100%",
+                                                width: "40px",
+                                                height: "40px",
+                                                border: "1px, solid, #e5e5e5"}}>
+                                                <Image
+                                                    fluid
+                                                    src={Block}
+                                                    style={{
+                                                        scale: "130%"
+                                                    }}
+                                                >
+                                                </Image>
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                )
+                            ) : (
+                                <Row>No results found.</Row>
+                            )}
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }

@@ -31,9 +31,9 @@ function Roshambo() {
     useEffect(() => {
         let timer;
         if (showSpinner) {
-             timer = setTimeout(() => {
-                 setShowSpinner(false);
-                 setIsRoundOver(true)
+            timer = setTimeout(() => {
+                setShowSpinner(false);
+                setIsRoundOver(true)
             }, 2000)
         }
         return () => clearTimeout(timer);
@@ -80,11 +80,14 @@ function Roshambo() {
         }
     }
 
-    return(
+    return (
         <>
-            <Container className={"d-flex flex-column align-content-center justify-content-center align-items-center h-100"}>
+            <Container
+                className={"d-flex flex-column align-content-center justify-content-center align-items-center h-100"}>
 
-                {!isStarted && <Button variant={"outline-light"} className={"px-4 py-3"} onClick={startGame} id="start-button">Start Game</Button>}
+                {!isStarted &&
+                    <Button variant={"outline-light"} className={"px-4 py-3"} onClick={startGame} id="start-button">Start
+                        Game</Button>}
                 {isStarted && <Container className={"d-flex flex-column h-100 w-100 text-center"}>
                     <Row className={"d-flex justify-content-start align-items-start w-100 py-5 text-white mt-3 mb-2"}>
                         <Col><h5>Player Score</h5><h5 id="player-score">{playerScore}</h5></Col>
@@ -97,16 +100,23 @@ function Roshambo() {
                     </Row>
                     {!isRoundOver && <Row id="player-options" className={"d-flex justify-content-center mx-auto py-5"}>
                         <Col>
-                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {getChoices(0)}}>Rock</Button>
+                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {
+                                getChoices(0)
+                            }}>Rock</Button>
                         </Col>
                         <Col>
-                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {getChoices(1)}}>Paper</Button>
+                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {
+                                getChoices(1)
+                            }}>Paper</Button>
                         </Col>
                         <Col>
-                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {getChoices(2)}}>Scissor</Button>
+                            <Button variant={"outline-light"} className={"px-4 py-3"} onClick={e => {
+                                getChoices(2)
+                            }}>Scissor</Button>
                         </Col>
                     </Row>}
-                    {isRoundOver && <Button variant={"light"} className={"d-inline-block px-4 py-3 mx-auto mt-4"} onClick={startNewRound}>Play Again</Button>}
+                    {isRoundOver && <Button variant={"light"} className={"d-inline-block px-4 py-3 mx-auto mt-4"}
+                                            onClick={startNewRound}>Play Again</Button>}
                 </Container>}
 
             </Container>

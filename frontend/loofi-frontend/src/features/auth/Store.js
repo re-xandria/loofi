@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 const initialState = {
     email: '',
@@ -15,7 +15,7 @@ const Store = ({children}) => {
         const storedToken = localStorage.getItem("authToken");
         const storedRole = localStorage.getItem("role");
         return storedEmail && storedToken
-            ? { email: storedEmail, token: storedToken, role: storedRole }
+            ? {email: storedEmail, token: storedToken, role: storedRole}
             : initialState;
     });
 

@@ -1,4 +1,3 @@
-import Navigation from "../../components/Navigation";
 import AdminDashboard from "../../components/dashboard/AdminDashboard";
 import UserDashboard from "../../components/dashboard/UserDashboard";
 import {useContext, useEffect} from "react";
@@ -12,7 +11,7 @@ function AccountDashboard() {
     const [searchParams] = useSearchParams();
     const isChecked = searchParams.get("isChecked") === "true";
 
-    useEffect( () => {
+    useEffect(() => {
         const timer = setTimeout(() => {
             setRole();
         }, 100);
@@ -33,9 +32,9 @@ function AccountDashboard() {
 
     switch (userInfo.role) {
         case "admin":
-            return <AdminDashboard isChecked = {isChecked} />;
+            return <AdminDashboard isChecked={isChecked}/>;
         default:
-            return <UserDashboard isChecked = {isChecked} />;
+            return <UserDashboard isChecked={isChecked}/>;
     }
 }
 

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LoofiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LoofiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LoofiApplication.class, args);
+    }
 
 }
