@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -83,10 +84,48 @@ public class UserService {
         return null;
     }
 
-    public Boolean isAdmin(RoleRequest request) {
+    public Boolean isAdmin(UserRequest request) {
         if (request.getEmail() != null && !request.getEmail().isEmpty()) {
             User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             return user.getRole().toString().equals("ROLE_ADMIN");
+        }
+        return null;
+    }
+
+    public String addUser(FriendRequest request) {
+        if (!request.getRequestorEmail().isEmpty() && !request.getUserEmail().isEmpty()) {
+            User requestor = userRepository.findByEmail(request.getRequestorEmail()).orElseThrow(() -> new UsernameNotFoundException("Requestor not found"));
+            User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            if (!requestor.getFriends().contains(user) && !user.getFriends().contains(requestor)) {
+                requestor.getFriends().add(user);
+                user.getFriends().add(requestor);
+                userRepository.save(requestor);
+                userRepository.save(user);
+                return "User added as friend";
+            }
+            return "User already added as friend";
+        }
+        return "Could not add user as friend";
+    }
+
+    public String removeUser(FriendRequest request) {
+        if (!request.getRequestorEmail().isEmpty() && !request.getUserEmail().isEmpty()) {
+            User requestor = userRepository.findByEmail(request.getRequestorEmail()).orElseThrow(() -> new UsernameNotFoundException("Requestor not found"));
+            User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            requestor.getFriends().remove(user);
+            user.getFriends().remove(requestor);
+            userRepository.save(requestor);
+            userRepository.save(user);
+            return "User deleted as friend";
+        }
+        return "Could not remove user as friend";
+    }
+
+    // only using RoleRequest because it already takes an email
+    public Set<User> findFriends(UserRequest request) {
+        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+            User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            return user.getFriends();
         }
         return null;
     }

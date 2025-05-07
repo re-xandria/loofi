@@ -82,7 +82,8 @@ function GamePage() {
                                     <Image thumbnail fluid src={Thumbnail}></Image>
                                 </Col>
                                 <Col className="align-content-center">
-                                    <h5>Game Coming Soon</h5>
+                                    <h5>Game Coming Soon
+                                    </h5>
                                 </Col>
                             </Row>
                         </Row>

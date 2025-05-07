@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleRequest {
-    String email;
+public class FriendRequest {
+    String requestorEmail;
+    String userEmail;
 }

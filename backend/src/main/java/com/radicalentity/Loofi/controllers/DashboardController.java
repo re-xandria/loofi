@@ -3,7 +3,7 @@ package com.radicalentity.Loofi.controllers;
 import com.radicalentity.Loofi.dto.DeleteRequest;
 import com.radicalentity.Loofi.dto.EmailRequest;
 import com.radicalentity.Loofi.dto.PasswordRequest;
-import com.radicalentity.Loofi.dto.RoleRequest;
+import com.radicalentity.Loofi.dto.UserRequest;
 import com.radicalentity.Loofi.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +37,7 @@ public class DashboardController {
     }
 
     @PostMapping("/auth-admin")
-    public Boolean isAdmin(@RequestBody RoleRequest request) {
+    public Boolean isAdmin(@RequestBody UserRequest request) {
         return userService.isAdmin(request);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -37,6 +38,12 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     Role role;
+
+    @ManyToMany
+    @JoinTable(name = "users_friends", joinColumns = {
+            @JoinColumn(name = "userID", referencedColumnName = "id")}
+            , inverseJoinColumns = {@JoinColumn(name = "friendID", referencedColumnName = "id")})
+    private Set<User> friends;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
