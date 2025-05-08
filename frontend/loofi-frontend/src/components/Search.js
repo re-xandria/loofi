@@ -5,6 +5,7 @@ import Add_User_SVG from "../assets/Add User.svg";
 import * as searchAPI from "../services/searchAPI";
 import {useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {validateSearch} from "../features/validation/searchValidation";
 
 function Search({isChecked}) {
 
@@ -21,14 +22,19 @@ function Search({isChecked}) {
     // if switch is checked, onSubmit will execute friend search and go to user results page
     const onSubmit = async () => {
         if (document.getElementById("search-toggle").checked) {
-            try {
-                const res = await searchAPI.findUsers(searchInput)
-                console.log("search successful")
-                console.log(res.data)
-                navigate('/user-results', {state: {results: res.data}});
-            } catch (error) {
-                console.log(error)
+            if (validateSearch(searchInput)) {
+                try {
+                    const res = await searchAPI.findUsers(searchInput)
+                    console.log("search successful")
+                    console.log(res.data)
+                    navigate('/user-results', {state: {results: res.data}});
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                alert("You have input invalid search parameters. Please try again.")
             }
+            console.log(validateSearch(searchInput))
         }
     }
 

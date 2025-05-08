@@ -7,6 +7,7 @@ import com.radicalentity.Loofi.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -22,7 +23,7 @@ public class FriendNetworkController {
     @PostMapping("/remove-user")
     public String removeUser(@RequestBody FriendRequest request) { return userService.removeUser(request); }
 
-    @GetMapping("/find-friends")
-    public Set<User> findFriends(UserRequest request) { return userService.findFriends(request); }
+    @PostMapping("/find-friends")
+    public List<User> findFriends(@RequestBody UserRequest request) { return userService.findFriends(request); }
 
 }

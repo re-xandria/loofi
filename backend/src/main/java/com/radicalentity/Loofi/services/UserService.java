@@ -96,11 +96,9 @@ public class UserService {
         if (!request.getRequestorEmail().isEmpty() && !request.getUserEmail().isEmpty()) {
             User requestor = userRepository.findByEmail(request.getRequestorEmail()).orElseThrow(() -> new UsernameNotFoundException("Requestor not found"));
             User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            if (!requestor.getFriends().contains(user) && !user.getFriends().contains(requestor)) {
+            if (!requestor.getFriends().contains(user) && !user.getFriends().contains(requestor) && requestor != user) {
                 requestor.getFriends().add(user);
-                user.getFriends().add(requestor);
                 userRepository.save(requestor);
-                userRepository.save(user);
                 return "User added as friend";
             }
             return "User already added as friend";
@@ -112,20 +110,20 @@ public class UserService {
         if (!request.getRequestorEmail().isEmpty() && !request.getUserEmail().isEmpty()) {
             User requestor = userRepository.findByEmail(request.getRequestorEmail()).orElseThrow(() -> new UsernameNotFoundException("Requestor not found"));
             User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            requestor.getFriends().remove(user);
-            user.getFriends().remove(requestor);
-            userRepository.save(requestor);
-            userRepository.save(user);
-            return "User deleted as friend";
+            if (requestor.getFriends().contains(user) || user.getFriends().contains(requestor)) {
+                userRepository.removeFriend(requestor.getId(), user.getId());
+                userRepository.save(requestor);
+                return "User deleted as friend";
+            }
+            return "User could not be found";
         }
         return "Could not remove user as friend";
     }
 
-    // only using RoleRequest because it already takes an email
-    public Set<User> findFriends(UserRequest request) {
+    public List<User> findFriends(UserRequest request) {
         if (request.getEmail() != null && !request.getEmail().isEmpty()) {
             User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            return user.getFriends();
+            return userRepository.findAllFriends(user.getId());
         }
         return null;
     }
