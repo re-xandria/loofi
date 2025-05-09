@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -126,6 +127,12 @@ public class UserService {
             return userRepository.findAllFriends(user.getId());
         }
         return null;
+    }
+
+    // find user and change their role in db
+    // dto should be both emails
+    public void updateUserRole() {
+        return;
     }
 
 }

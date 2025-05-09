@@ -49,12 +49,12 @@ function Navigation({isChecked}) {
                 <Navbar.Collapse id="basic-navbar-nav" className="w-100">
                     <Row className="w-100 justify-content-end flex-grow-1">
 
-                        <Col xl={7} md={6}
-                             className="d-flex justify-content-center align-items-center gap-2 my-2 ms-lg-5">
+                        <Col lg={7} md={6}
+                             className="d-flex d-block justify-content-lg-center justify-content-sm-start align-items-center gap-2 my-2 ms-lg-5">
                             <Search isChecked={isChecked}></Search>
                         </Col>
 
-                        <Col lg={4} md={3} className="d-flex justify-content-end align-items-center gap-3 my-2">
+                        <Col lg={4} md={5} className="d-flex d-block justify-content-lg-end align-items-center gap-3 my-2">
                             <NavLink href={`/home?isChecked=${isChecked}`}><Image src={Home} alt="Home"
                                                                                   style={{scale: '60%'}}/></NavLink>
                             <NavLink href={`/dashboard?isChecked=${isChecked}`}><Image src={Dashboard}

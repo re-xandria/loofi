@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -32,6 +33,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("admin@email.com")
                     .password(passwordEncoder.encode("1Password*"))
                     .role(Role.ROLE_ADMIN)
+                    .gamesPlayed(57)
+                    .achievementsEarned(4)
                     .build();
 
             userService.save(admin);
@@ -43,6 +46,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("alice.w@ymail.com")
                     .password(passwordEncoder.encode("P@ssword123"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(12)
+                    .achievementsEarned(1)
                     .build();
 
             userService.save(user1);
@@ -54,6 +59,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("bob.swift@gmail.com")
                     .password(passwordEncoder.encode("Qwerty!2024"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(19)
+                    .achievementsEarned(2)
                     .build();
 
             userService.save(user2);
@@ -65,6 +72,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("clara.newton@outlook.com")
                     .password(passwordEncoder.encode("12345*Abcde"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(64)
+                    .achievementsEarned(5)
                     .build();
 
             userService.save(user3);
@@ -76,6 +85,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("daniel.f@gmail.com")
                     .password(passwordEncoder.encode("MyPass@890"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(36)
+                    .achievementsEarned(3)
                     .build();
 
             userService.save(user4);
@@ -98,6 +109,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("felix.s@gmail.com")
                     .password(passwordEncoder.encode("RockSolid99!"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(57)
+                    .achievementsEarned(4)
                     .build();
 
             userService.save(user6);
@@ -120,6 +133,8 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("henry.bolt@outlook.com")
                     .password(passwordEncoder.encode("H3nryBolt!"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(21)
+                    .achievementsEarned(2)
                     .build();
 
             userService.save(user8);
@@ -131,6 +146,7 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("islabloom@ymail.com")
                     .password(passwordEncoder.encode("Bloom2024*"))
                     .role(Role.ROLE_USER)
+                    .gamesPlayed(3)
                     .build();
 
             userService.save(user9);

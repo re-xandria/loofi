@@ -90,77 +90,81 @@ function SignUp() {
     }
 
     return (
-        <Container fluid style={{height: 100 + "vh"}}>
-            <Row style={{height: "100%"}}>
-                <Col sm={0} style={{padding: 0, height: "100%"}} className="position-relative">
-                    <Image fluid className="position-absolute w-100 h-100" style={{scale: 40 + "%"}} src={logo}
-                           alt="Loofi logo"/>
-                    <Image fluid
-                           style={{width: "100%", height: "100%", objectFit: "cover"}} src={pattern} alt="pattern"/>
+        <Container fluid className="vh-100">
+            <Row className="h-100">
+                {/* Left Image Column - Hidden on small screens */}
+                <Col md={5} className="p-0 d-none d-md-block position-relative">
+                    <Image
+                        src={pattern}
+                        alt="pattern"
+                        fluid
+                        className="w-100 h-100 position-absolute"
+                        style={{ objectFit: "cover", zIndex: 1 }}
+                    />
+                    <Image
+                        src={logo}
+                        alt="Loofi logo"
+                        fluid
+                        className="position-absolute top-50 start-50 translate-middle"
+                        style={{ width: "40%", zIndex: 2 }}
+                    />
                 </Col>
-                <Col fluid="true" style={{
-                    margin: "auto",
-                    textAlign: "left",
-                    paddingInlineStart: 20 + "em",
-                    paddingInlineEnd: 20 + "em"
-                }} id="sign-in" lg={7}>
-                    <h1>Sign Up</h1>
-                    <p>Already have an account? <a href="/sign-in">Sign in</a></p>
-                    <Form mx-md-2="true" style={{marginRight: 10 + "rem"}}>
-                        <FormGroup style={{marginTop: 2.5 + "rem"}} controlId="displayName">
-                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Display Name *</FormLabel>
-                            <FormControl style={{
-                                display: "block",
-                                paddingTop: .75 + "rem",
-                                paddingBottom: .75 + "rem",
-                                paddingLeft: 1 + "rem",
-                                paddingRight: 1 + "rem",
-                                width: 20 + "rem"
-                            }} type="text" placeholder="John" onChange={e => handleName(e)}/>
-                        </FormGroup>
-                        <FormGroup style={{marginTop: 1 + "rem"}} controlId="email">
-                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Email Address *</FormLabel>
-                            <FormControl style={{
-                                display: "block",
-                                paddingTop: .75 + "rem",
-                                paddingBottom: .75 + "rem",
-                                paddingLeft: 1 + "rem",
-                                paddingRight: 1 + "rem",
-                                width: 20 + "rem",
-                                marginBottom: 3 + "rem"
-                            }} type="email" placeholder="john.appleseed@email.com" onChange={e => handleEmail(e)}/>
-                        </FormGroup>
-                        <FormGroup controlId="password">
-                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Password *</FormLabel>
-                            <FormControl style={{
-                                display: "block",
-                                paddingTop: .75 + "rem",
-                                paddingBottom: .75 + "rem",
-                                paddingLeft: 1 + "rem",
-                                paddingRight: 1 + "rem",
-                                width: 20 + "rem"
-                            }} type="password" onChange={e => handlePassword(e)}/>
-                        </FormGroup>
-                        <FormGroup style={{marginTop: 1 + "rem"}} controlId="passwordConfirm">
-                            <FormLabel style={{display: "block", marginBottom: .5 + "rem"}}>Confirm Password
-                                *</FormLabel>
-                            <FormControl style={{
-                                display: "block",
-                                paddingTop: .75 + "rem",
-                                paddingBottom: .75 + "rem",
-                                paddingLeft: 1 + "rem",
-                                paddingRight: 1 + "rem",
-                                width: 20 + "rem"
-                            }} type="password" onChange={e => handlePassword(e)}/>
-                        </FormGroup>
-                        <Button style={{
-                            paddingInlineStart: 1 + "rem",
-                            paddingInlineEnd: 1 + "rem",
-                            paddingBlockStart: .75 + "rem",
-                            paddingBlockEnd: .75 + "rem",
-                            width: 20 + "rem"
-                        }} type="button" onClick={onSubmit}>Register Account</Button>
-                    </Form>
+
+                {/* Right Form Column */}
+                <Col xs={12} md={7} className="d-flex align-items-center justify-content-center px-4 px-md-5">
+                    <div className="w-100" style={{ maxWidth: "400px" }}>
+                        <h1>Sign Up</h1>
+                        <p>
+                            Already have an account? <a href="/sign-in">Sign in</a>
+                        </p>
+                        <Form>
+                            <FormGroup className="mt-4" controlId="displayName">
+                                <FormLabel>Display Name *</FormLabel>
+                                <FormControl
+                                    type="text"
+                                    placeholder="John"
+                                    onChange={e => handleName(e)}
+                                    className="py-3 px-4"
+                                />
+                            </FormGroup>
+
+                            <FormGroup className="mt-3" controlId="email">
+                                <FormLabel>Email Address *</FormLabel>
+                                <FormControl
+                                    type="email"
+                                    placeholder="john.appleseed@email.com"
+                                    onChange={e => handleEmail(e)}
+                                    className="py-3 px-4"
+                                />
+                            </FormGroup>
+
+                            <FormGroup className="mt-4" controlId="password">
+                                <FormLabel>Password *</FormLabel>
+                                <FormControl
+                                    type="password"
+                                    onChange={e => handlePassword(e)}
+                                    className="py-3 px-4"
+                                />
+                            </FormGroup>
+
+                            <FormGroup className="mt-3 mb-4" controlId="passwordConfirm">
+                                <FormLabel>Confirm Password *</FormLabel>
+                                <FormControl
+                                    type="password"
+                                    onChange={e => handlePassword(e)}
+                                    className="py-3 px-4"
+                                />
+                            </FormGroup>
+
+                            <Button
+                                type="button"
+                                onClick={onSubmit}
+                                className="w-100 py-3"
+                            >
+                                Register Account
+                            </Button>
+                        </Form>
+                    </div>
                 </Col>
             </Row>
         </Container>

@@ -8,10 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -20,6 +17,8 @@ import java.util.Set;
 @Entity
 @ToString
 @Table(name = "users")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name ="user_type")
 public class User implements UserDetails {
 
     @Id
@@ -47,6 +46,10 @@ public class User implements UserDetails {
             , inverseJoinColumns = {@JoinColumn(name = "friend_id", referencedColumnName = "id")})
     @JsonIgnore
     private List<User> friends;
+
+    int gamesPlayed = 0;
+
+    int achievementsEarned = 0;
 
     @Override
     public boolean equals(Object o) {
