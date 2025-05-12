@@ -1,6 +1,8 @@
 package com.radicalentity.Loofi.services;
 
 import com.radicalentity.Loofi.dto.*;
+import com.radicalentity.Loofi.models.Admin;
+import com.radicalentity.Loofi.models.Role;
 import com.radicalentity.Loofi.models.User;
 import com.radicalentity.Loofi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -129,10 +131,18 @@ public class UserService {
         return null;
     }
 
-    // find user and change their role in db
-    // dto should be both emails
-    public void updateUserRole() {
-        return;
+    public void updateUserRole(UpdateRoleRequest request) throws AccessDeniedException {
+        User admin = userRepository.findByEmail(request.getAdminEmail()).orElseThrow(() -> new UsernameNotFoundException("Admin not found"));
+        if (!(admin instanceof Admin adminUser)) {
+            throw new AccessDeniedException("Only admins can update roles.");
+        }
+
+        User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        adminUser.changeUserRole(user, request.getRole());
+        userRepository.save(user);
     }
+
+    public List<User> findAllAdmins() { return userRepository.findByRole(Role.ROLE_ADMIN); }
 
 }

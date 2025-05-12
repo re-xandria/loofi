@@ -7,6 +7,7 @@ import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {validateEmail, validatePassword} from "../validation/authValidation";
 import {UserContext} from "./Store";
+import * as settingsAPI from "../../services/settingsAPI";
 
 function SignIn() {
 
@@ -43,12 +44,12 @@ function SignIn() {
     const onSubmit = async () => {
         try {
             const res = await authAPI.signIn(email, password);
-            setUserInfo({email: email, token: res.data.token, role: "user"});
             // console.log(res)
-            setIsLoggedIn(true);
             localStorage.setItem("authToken", res.data.token);
             localStorage.setItem("email", email);
-            localStorage.setItem("role", "user");
+            await settingsAPI.isAdmin(email) ? localStorage.setItem("role", "admin") : localStorage.setItem("role", "user")
+            setIsLoggedIn(true);
+            setUserInfo({email: email, token: res.data.token, role: localStorage.getItem("role")});
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 console.log("Unable to Authenticate", error);

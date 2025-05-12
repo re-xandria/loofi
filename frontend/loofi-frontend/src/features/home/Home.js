@@ -4,23 +4,13 @@ import Navigation from "../../components/Navigation";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import Thumbnail from "../../assets/Game Thumbnail.svg";
+import * as settingsAPI from "../../services/settingsAPI";
 
 function Home() {
 
-    const [userInfo, setUserInfo] = useContext(UserContext);
     const [searchParams] = useSearchParams();
     const isChecked = searchParams.get("isChecked") === "true";
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            const email = localStorage.getItem("email");
-            const token = localStorage.getItem("authToken");
-            if (email && token) setUserInfo({email: email, token: token});
-            // console.log(userInfo)
-        }, 100)
-        return () => clearTimeout(timer);
-    }, [])
 
     const goToGamePage = () => {
         navigate(`/game?isChecked=${isChecked}`)

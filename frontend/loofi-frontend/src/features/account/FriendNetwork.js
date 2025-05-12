@@ -5,6 +5,9 @@ import {UserContext} from "../auth/Store";
 import Remove from "../../assets/Remove.svg";
 import View from "../../assets/Eyes.svg";
 import Block from "../../assets/Block.png";
+import ChangeRole from "../../assets/Change Role.svg";
+import * as settingsAPI from "../../services/settingsAPI";
+import * as adminAPI from "../../services/adminAPI";
 
 function FriendNetwork() {
 
@@ -45,6 +48,25 @@ function FriendNetwork() {
         }
     }
 
+    const toggleRole = async (adminEmail, userEmail) => {
+        if (adminEmail !== userEmail) {
+            try {
+                let res = await settingsAPI.isAdmin(userEmail);
+                if (res.data) {
+                    let res = await adminAPI.updateRole(adminEmail, userEmail, "ROLE_USER")
+                    res.data ? alert("Successfully changed role from admin to user.") : alert("Could not change role from admin to user. Please try again.")
+                } else {
+                    let res = await adminAPI.updateRole(adminEmail, userEmail, "ROLE_ADMIN")
+                    res.data ? alert("Successfully changed role from user to admin.") : alert("Could not change role from user to admin. Please try again.")
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            alert("Cannot change own role.")
+        }
+    }
+
     return (
         <>
             <h3>Friend Network</h3>
@@ -53,8 +75,8 @@ function FriendNetwork() {
                 {friendsList[0] ? (
                     friendsList.map((item, idx) =>
                         <Row className={"py-2 align-items-center"} key={idx}>
-                            <Col sm={4}><h4>{item.displayName}</h4></Col>
-                            <Col sm={4}><p className={"m-0"}>{item.email}</p></Col>
+                            <Col ><h4>{item.displayName}</h4></Col>
+                            <Col ><p className={"m-0"}>{item.email}</p></Col>
                             <Col className={"d-flex gap-3"}>
                                 <Button variant={"outline-light"} style={{
                                     borderRadius: "100%",
@@ -104,6 +126,24 @@ function FriendNetwork() {
                                     >
                                     </Image>
                                 </Button>
+                                { userInfo.role === 'admin' &&
+                                    <Button variant={"outline-light"} style={{
+                                        borderRadius: "100%",
+                                        width: "40px",
+                                        height: "40px",
+                                        border: "1px, solid, #e5e5e5"}}
+                                            onClick={() => toggleRole(userInfo.email, item.email)}
+                                    >
+                                        <Image
+                                            fluid
+                                            src={ChangeRole}
+                                            style={{
+                                                scale: "140%"
+                                            }}
+                                        >
+                                        </Image>
+                                    </Button>
+                                }
                             </Col>
                         </Row>
                     )

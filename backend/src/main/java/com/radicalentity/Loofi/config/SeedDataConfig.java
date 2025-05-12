@@ -1,5 +1,6 @@
 package com.radicalentity.Loofi.config;
 
+import com.radicalentity.Loofi.models.Admin;
 import com.radicalentity.Loofi.models.Role;
 import com.radicalentity.Loofi.models.User;
 import com.radicalentity.Loofi.repositories.UserRepository;
@@ -27,7 +28,7 @@ public class SeedDataConfig implements CommandLineRunner {
 
         if (userRepository.count() == 0) {
 
-            User admin = User
+            Admin admin = Admin
                     .builder()
                     .displayName("Admin")
                     .email("admin@email.com")

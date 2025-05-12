@@ -30,7 +30,7 @@ const AdminDashboard = ({isChecked}) => {
         <BaseDashboard title="admin" isChecked={isChecked}>
             <Container>
                 <Row className="mt-5 gap-5 flex">
-                    <Col lg={6}>
+                    <Col lg={7}>
                         {changePage()}
                     </Col>
 

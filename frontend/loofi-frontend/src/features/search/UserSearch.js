@@ -5,8 +5,11 @@ import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import Add from "../../assets/Checkmark.svg";
 import Block from "../../assets/Block.png";
 import View from "../../assets/Eyes.svg";
+import ChangeRole from "../../assets/Change Role.svg";
 import * as friendsAPI from "../../services/friendsAPI";
 import {UserContext} from "../auth/Store";
+import * as settingsAPI from "../../services/settingsAPI";
+import * as adminAPI from "../../services/adminAPI";
 
 function UserSearch() {
 
@@ -15,7 +18,7 @@ function UserSearch() {
     const [isChecked, setIsChecked] = useState(true);
     const [userInfo, setUserInfo] = useContext((UserContext));
 
-    console.log("ComponentName:", {isChecked, setIsChecked});
+    //console.log("ComponentName:", {isChecked, setIsChecked});
 
     const addUserRequest = async (requestorEmail, userEmail) => {
         try {
@@ -33,6 +36,25 @@ function UserSearch() {
             }
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const toggleRole = async (adminEmail, userEmail) => {
+        if (adminEmail !== userEmail) {
+            try {
+                let res = await settingsAPI.isAdmin(userEmail);
+                if (res.data) {
+                    let res = await adminAPI.updateRole(adminEmail, userEmail, "ROLE_USER")
+                    res.data ? alert("Successfully changed role from admin to user.") : alert("Could not change role from admin to user. Please try again.")
+                } else {
+                    let res = await adminAPI.updateRole(adminEmail, userEmail, "ROLE_ADMIN")
+                    res.data ? alert("Successfully changed role from user to admin.") : alert("Could not change role from user to admin. Please try again.")
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            alert("Cannot change own role.")
         }
     }
 
@@ -99,6 +121,23 @@ function UserSearch() {
                                                 >
                                                 </Image>
                                             </Button>
+                                            { userInfo.role === 'admin' &&
+                                                <Button variant={"outline-light"} style={{
+                                                    borderRadius: "100%",
+                                                    width: "40px",
+                                                    height: "40px",
+                                                    border: "1px, solid, #e5e5e5"}}
+                                                    onClick={() => toggleRole(userInfo.email, item.email)}
+                                                >
+                                                    <Image
+                                                        fluid
+                                                        src={ChangeRole}
+                                                        style={{
+                                                            scale: "140%"
+                                                        }}
+                                                    >
+                                                    </Image>
+                                                </Button>}
                                         </Col>
                                     </Row>
                                 )

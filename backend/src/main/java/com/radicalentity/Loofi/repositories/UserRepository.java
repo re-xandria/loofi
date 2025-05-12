@@ -1,5 +1,7 @@
 package com.radicalentity.Loofi.repositories;
 
+import com.radicalentity.Loofi.models.Admin;
+import com.radicalentity.Loofi.models.Role;
 import com.radicalentity.Loofi.models.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
         delete from users_friends where (user_id = :user_id and friend_id = :friend_id) or (user_id = :friend_id and friend_id = :user_id)
     """, nativeQuery = true)
     void removeFriend(@Param("user_id") Long userId, @Param("friend_id") Long friendId);
+
+    List<User> findByRole(Role role);
+
 }
