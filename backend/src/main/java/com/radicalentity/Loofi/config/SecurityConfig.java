@@ -3,6 +3,7 @@ package com.radicalentity.Loofi.config;
 import com.radicalentity.Loofi.filters.JwtAuthenticationFilter;
 import com.radicalentity.Loofi.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,6 +29,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    //for compatibility with live backend service
+    @Value("${CORS_ALLOWED_ORIGIN}")
+    private String allowedOrigin;
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -51,7 +56,7 @@ public class SecurityConfig {
                 .cors(cors -> cors
                         .configurationSource(request -> {
                             CorsConfiguration corsConfiguration = new CorsConfiguration();
-                            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000"));
+                            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", allowedOrigin));
                             corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                             corsConfiguration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
                             return corsConfiguration;
