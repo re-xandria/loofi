@@ -7,9 +7,13 @@ import {useSearchParams} from "react-router-dom";
 
 function AccountDashboard() {
 
-    const [userInfo, setUserInfo] = useContext((UserContext));
+    const [[userInfo, setUserInfo]] = useContext((UserContext));
     const [searchParams] = useSearchParams();
     const isChecked = searchParams.get("isChecked") === "true";
+
+    useEffect(() => {
+        console.log(userInfo.role);
+    }, []);
 
     switch (userInfo.role) {
         case "admin":

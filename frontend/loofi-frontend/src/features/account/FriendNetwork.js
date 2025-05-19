@@ -12,7 +12,7 @@ import * as adminAPI from "../../services/adminAPI";
 function FriendNetwork() {
 
     const [friendsList, setFriendsList] = useState([]);
-    const [userInfo, setUserInfo] = useContext((UserContext));
+    const [[userInfo, setUserInfo]] = useContext((UserContext));
 
     const fetchData = async () => {
         try {

@@ -13,27 +13,35 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [userInfo, setUserInfo] = useContext(UserContext);
+    const [[userInfo, setUserInfo]] = useContext(UserContext);
     const [isAcctCreated, setIsAcctCreated] = useState(false)
     let navigate = useNavigate();
 
     useEffect(() => {
         if (isAcctCreated && userInfo) {
+            console.log(userInfo.email);
             console.log("Token acquired");
             navigate('/home'); // send to loofi platform if token returned
         }
     }, [isAcctCreated, userInfo]);
 
     useEffect(() => {
-        console.log("valid fields updated");
+        console.log(displayName, email, password, passwordConfirmation)
     }, [displayName, email, password, passwordConfirmation])
 
     const onSubmit = async () => {
-        if (validateName(displayName) && validateEmail(email) && validatePassword(password) && validatePassword(passwordConfirmation) && password === passwordConfirmation) {
+        console.log(displayName, email, password, passwordConfirmation);
+        if (!validatePassword(password) || !validatePassword(passwordConfirmation) || password !== passwordConfirmation) { alert("Invalid password(s). Please try again.") }
+        else if (!validateEmail(email)) { alert("Invalid email. Please try again.") }
+        else if (!validateName(displayName)) { alert("Name must be at least 2 letters and less than 35. Please try again.") }
+        else {
             try {
+                console.log(displayName, email, password, passwordConfirmation)
                 const res = await authAPI.signUp(displayName, email, password)
-                setUserInfo({email: email, token: res.data.token});
+                localStorage.setItem("authToken", res.data.token);
+                localStorage.setItem("email", email);
                 setIsAcctCreated(true);
+                setUserInfo({email: email, token: res.data.token});
                 alert("Account successfully created!");
             } catch (error) {
                 if (error.response && error.response.status === 403) {
@@ -43,9 +51,6 @@ function SignUp() {
                     console.log("Something went wrong. Try again.")
                 }
             }
-        } else {
-            console.log("Account could not be created")
-            console.log(displayName, email, password, passwordConfirmation)
         }
     }
 
@@ -138,18 +143,20 @@ function SignUp() {
                                 />
                             </FormGroup>
 
-                            <FormGroup className="mt-4" controlId="password">
+                            <FormGroup className="mt-4">
                                 <FormLabel>Password *</FormLabel>
                                 <FormControl
+                                    id={"password"}
                                     type="password"
                                     onChange={e => handlePassword(e)}
                                     className="py-3 px-4"
                                 />
                             </FormGroup>
 
-                            <FormGroup className="mt-3 mb-4" controlId="passwordConfirm">
+                            <FormGroup className="mt-3 mb-4">
                                 <FormLabel>Confirm Password *</FormLabel>
                                 <FormControl
+                                    id={"passwordConfirm"}
                                     type="password"
                                     onChange={e => handlePassword(e)}
                                     className="py-3 px-4"

@@ -1,8 +1,15 @@
 import './styles/App.css';
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import {Button} from "react-bootstrap";
+import {UserContext} from "./features/auth/Store";
 
 function App() {
+
+    const [[userInfo, setUserInfo], clearUserInfo] = useContext(UserContext);
+
+    // useEffect(() => {
+    //     clearUserInfo();
+    // }, []);
 
     return (
         <div className="App">

@@ -14,7 +14,7 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userInfo, setUserInfo] = useContext(UserContext);
+    const [[userInfo, setUserInfo]] = useContext(UserContext);
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -47,7 +47,8 @@ function SignIn() {
             // console.log(res)
             localStorage.setItem("authToken", res.data.token);
             localStorage.setItem("email", email);
-            await settingsAPI.isAdmin(email) ? localStorage.setItem("role", "admin") : localStorage.setItem("role", "user")
+            const res2 = await settingsAPI.isAdmin(email)
+            res2.data ? localStorage.setItem("role", "admin") : localStorage.setItem("role", "user")
             setIsLoggedIn(true);
             setUserInfo({email: email, token: res.data.token, role: localStorage.getItem("role")});
         } catch (error) {

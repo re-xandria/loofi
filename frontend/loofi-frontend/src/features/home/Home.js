@@ -11,6 +11,11 @@ function Home() {
     const [searchParams] = useSearchParams();
     const isChecked = searchParams.get("isChecked") === "true";
     const navigate = useNavigate();
+    const [[userInfo]] = useContext(UserContext);
+
+    useEffect(() => {
+        console.log(userInfo.email, userInfo.role)
+    }, []);
 
     const goToGamePage = () => {
         navigate(`/game?isChecked=${isChecked}`)

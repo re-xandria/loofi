@@ -24,7 +24,7 @@ const Store = ({children}) => {
     };
 
     return (
-        <UserContext.Provider value={[userInfo, setUserInfo, clearUserInfo]}>{children}</UserContext.Provider>
+        <UserContext.Provider value={[[userInfo, setUserInfo],  clearUserInfo]}>{children}</UserContext.Provider>
     )
 }
 

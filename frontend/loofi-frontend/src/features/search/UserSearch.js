@@ -16,7 +16,7 @@ function UserSearch() {
     const location = useLocation();
     const results = location.state?.results;
     const [isChecked, setIsChecked] = useState(true);
-    const [userInfo, setUserInfo] = useContext((UserContext));
+    const [[userInfo, setUserInfo]] = useContext((UserContext));
 
     //console.log("ComponentName:", {isChecked, setIsChecked});
 

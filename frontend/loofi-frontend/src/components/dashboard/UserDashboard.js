@@ -3,6 +3,7 @@ import BaseDashboard from "../dashboard/BaseDashboard";
 import {Col, Container, Nav, Row} from "react-bootstrap";
 import AccountSettings from "../../features/account/AccountSettings";
 import EditProfile from "../../features/account/EditProfile";
+import FriendNetwork from "../../features/account/FriendNetwork";
 
 const UserDashboard = ({isChecked}) => {
 
@@ -15,7 +16,7 @@ const UserDashboard = ({isChecked}) => {
             case "settings":
                 return <AccountSettings></AccountSettings>
             case "friends":
-                return
+                return <FriendNetwork></FriendNetwork>
             default:
                 return <EditProfile></EditProfile>
         }
@@ -40,7 +41,7 @@ const UserDashboard = ({isChecked}) => {
                                     Profile</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="achievements"
+                                <Nav.Link disabled eventKey="achievements"
                                           onClick={() => setSelectedPage('achievements')}>Achievements</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>

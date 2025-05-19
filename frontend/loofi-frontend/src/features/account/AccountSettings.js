@@ -6,7 +6,7 @@ import {validateEmail, validatePassword} from "../validation/authValidation";
 import {useNavigate} from "react-router-dom";
 
 function AccountSettings() {
-    const [userInfo, setUserInfo] = useContext(UserContext);
+    const [[userInfo, setUserInfo]] = useContext(UserContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -30,7 +30,7 @@ function AccountSettings() {
     const handlePassword = (field) => {
         if (field.target.id === 'password') {
             if (validatePassword(field.target.value)) {
-                console.log("valid password given")
+                console.log(field.target.value)
                 setPassword(field.target.value);
             } else {
                 setPassword('')
@@ -38,7 +38,7 @@ function AccountSettings() {
             }
         } else {
             if (validatePassword(field.target.value)) {
-                console.log("valid password given")
+                console.log(field.target.value)
                 setPasswordConfirmation(field.target.value);
             } else {
                 setPasswordConfirmation('')
@@ -63,22 +63,23 @@ function AccountSettings() {
 
     const onSubmitPass = async () => {
         console.log(userInfo.email)
-        if (userInfo.token && password === passwordConfirmation) {
+        if (userInfo.token && password === passwordConfirmation && password !== "" && passwordConfirmation !== "") {
             try {
                 const res = await settingsAPI.changePassword(userInfo.email, password);
-                if (res.data === "Password changed") alert("Password successfully changed!");
-                else alert("New password is same as current password. Please try again.")
-                document.getElementById("password").value = ""
-                document.getElementById("passwordConfirm").value = ""
+                if (res.data === "Password changed") { alert("Password successfully changed!") }
+                else { alert("New password is same as current password. Please try again.") }
             } catch (error) {
                 console.log(error)
                 alert("Password could not be saved. Please try again.")
             }
+        } else {
+            alert("Passwords do not match or are empty. Please try again.")
         }
+        document.getElementById("password").value = ""
+        document.getElementById("passwordConfirmation").value = ""
     }
 
     const deleteAccount = async () => {
-        console.log("account deleted")
         if (window.confirm("Are you sure you want to delete your account?")) {
             try {
                 const res = await settingsAPI.deleteAccount(userInfo.email);
@@ -115,13 +116,13 @@ function AccountSettings() {
                 <Row className="my-5">
                     <Form>
                         <h5 className="mb-2">Change Password</h5>
-                        <Form.Group className="mb-4" controlId="password">
+                        <Form.Group className="mb-4" >
                             <Form.Label>New Password</Form.Label>
-                            <Form.Control type="password" onChange={e => handlePassword(e)}/>
+                            <Form.Control id="password" type="password" onChange={e => handlePassword(e)}/>
                         </Form.Group>
-                        <Form.Group className="mb-4" controlId="passwordConfirm">
+                        <Form.Group className="mb-4">
                             <Form.Label>Confirm New Password</Form.Label>
-                            <Form.Control type="password" onChange={e => handlePassword(e)}/>
+                            <Form.Control id="passwordConfirmation" type="password" onChange={e => handlePassword(e)}/>
                         </Form.Group>
                         <Form.Group>
                             <Button type="button" onClick={onSubmitPass}>Save Changes</Button>

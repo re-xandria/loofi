@@ -1,5 +1,6 @@
 export const validateEmail = (email) => {
     // eventually validate by trying to send a verification email, if fails return error
+    console.log(email)
     const validPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return !!email.match(validPattern);
 }
@@ -12,5 +13,5 @@ export const validatePassword = (password) => {
 }
 
 export const validateName = (name) => {
-    return 2 < name.length < 30;
+    return 2 < name.length && name.length < 35;
 }
